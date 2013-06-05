@@ -71,6 +71,9 @@ proc(_rankTag, @rankReq,
 ##
 ## Notes: Must search in reverse order or an admin would match
 ##        a builder or VIP ect ect...
+##        For now this is using pgroup(@player) but i would like it to read
+##        GroupManager's YML file so this can check offline players.
+##        This is somthing of a TODO.
 ##
 proc(_getExGroup, @player,
  ifelse(array_contains_ic(pgroup(@player), Admin),

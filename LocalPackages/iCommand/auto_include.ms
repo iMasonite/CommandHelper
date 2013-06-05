@@ -10,8 +10,8 @@ proc(_iCommand,
 
     msg(concat(color(f), ' ================================================'))
     msg(concat(color(a), '  Commands developed using ', color(b), 'CommandHelper'))
-    msg(concat(color(a), '  An extensive programming interface plugin'))
-    msg(concat(color(a), '  Developed predominantly by: ', @autnam, color(@autary[1]) @author))
+    msg(concat(color(a), '  An extensive programming interface plugin by sk89q.'))
+    msg(concat(color(a), '  Commands developed predominantly by: ', @autnam, color(@autary[1]) @author))
     msg(concat(color(a), '  Current commands available are listed below.'))
     msg(concat(color(e), '  If you have any ideas for a command please let me know'))
     msg(concat(color(e), '  by going on the ', color(b), 'server forum ', color(e), 'and post about them.'))
@@ -49,14 +49,14 @@ proc(_iCommand,
                 
         )),
     ))
-    foreach(@array, @subarray,
-        if(not(equals_ic(trim(@subarray[1][0]), null)),
-            msg('')
+    foreach(@array, @subarray) {
+        if(not(equals_ic(trim(@subarray[1][0]), null))) {
             msg(concat(color(7), ' ', _rankTag(@subarray[0]), '+'))
-            foreach(@subarray[1], @command,
+            foreach(@subarray[1], @command) {
                 assign(@a, split('|', @command))
                 msg(concat(' - ', _chatFormat(@a[0], @a[1], 'f', @a[2], 'e'), @a[3]))
-            )    
-        )
-    )    
+            }    
+        }
+    }
+    msg(concat(color(f), ' ================================================'))
 )
