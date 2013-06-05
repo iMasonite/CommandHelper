@@ -1,0 +1,5 @@
+## ----- Admin Chat ---------------------------------------------------------------------
+## Private chat chanel for Moderator+
+*:/a [$] = >>>
+    _adminChat(player(), $)
+<<<
