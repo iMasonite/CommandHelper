@@ -30,7 +30,7 @@ proc(_iCommand,
         )),
         ## Commands that require '- commandhelper.alias.moderator'
         array(Moderator, array(
-            concat(null),
+            concat('d', '|', 'AdminChat', '|', '/a', '|', 'Private chat chanel for Moderator+.'),
                 
         )),
         ## Commands that require '- commandhelper.alias.miniadmin'

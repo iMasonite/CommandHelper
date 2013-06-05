@@ -7,7 +7,7 @@
 ## Usage:
 ##      _adminChat(@sender, @message)
 ##
- proc(_adminChat, @senderName, @message,
+ proc(_adminChat, @sender, @message,
 
     ## Info and Usage
     if(equals(@message, '')) { 
@@ -18,7 +18,7 @@
         die()
     }
     ## Standard Permission Prechecks
-    if(not(has_permission(player(), 'commandhelper.alias.manager'))) {
+    if(not(has_permission(@sender, 'commandhelper.alias.manager'))) {
         die(concat(color(c)'[AdminChat]: You are not permitted to use this command!'))
     }
     # Format the message to be sent to all players.  
