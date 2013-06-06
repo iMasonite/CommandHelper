@@ -27,6 +27,33 @@ proc(_chatFormat, @prefixcolor, @prefix, @textcolor, @text, @messagecolor,
         )
     )
 )
+## ---------- Reusable Return Procedure coordFormat ----------
+## Coordinates format output for the chat to make the coordinates
+## easy to read in game.
+##
+## Usage:
+##      _coordFormat(array(-47, 64, -897, world))
+## Returns:
+##      Formatted array of Coordinates x y z. equiv to i.e. x: -47 y: 64 z: 897
+##
+proc(_coordFormat, @coordArray,
+    assign(@cleanme,
+        concat(
+            color(b),
+            'x: ', color(f), 
+            @coordArray[0], color(b), 
+            ' y: ', color(f), 
+            @coordArray[1], color(b), 
+            ' z: ', color(f), 
+            @coordArray[2],
+        )
+    )
+    return (
+        replace(replace(@cleanme, '{', ''), '}', '')
+    )
+)
+
+
 ## ---------- Reusable Return Procedure rankTag ----------
 ## Place to hold this so its reusable and uniform.
 ## If it needs altering later, no searching for all instances
@@ -60,12 +87,14 @@ proc(_rankTag, @rankReq,
                 return (concat(color(f), '[', color(f), 'Default', color(f), ']'))
     }
 )
+
+
 ## ---------- Reusable Return Procedure getExGroup ----------
 ## Get the exact group of the player and return the name
 ## and associated color of the tag of the rank.
 ##
 ## Usage Example:
-##      _getExGroup(@player)
+##      _getExGroup(player())
 ## Returns:
 ##      Array of values, Example: {"Admin", "c"}
 ##
@@ -96,4 +125,83 @@ proc(_getExGroup, @player,
         ,#else
             return(array(Default, e))
     )
+)
+
+
+## ---------- Reusable Return Procedure teleportSafe ----------
+## Takes an array of coordinates in ploc(@player) format and
+## runs it through a battery of checks to see if the destination
+## is safe for a player in survival mode to teleport.
+##
+## Usage Example:
+##      _teleportSafe(array(-47, 64, -897, world))
+## Returns:
+##      boolean
+##
+## Notes: For now, this will check blocks in range;
+##         - 1 Above head hight
+##         - 1 At head hight
+##         - 1 At leg hight
+##         - 1 Below feet hight
+##   TODO: - gte >= 10 below feet hight (air, falling losing 2.5 hearts)
+##   TODO: - 1 at bedrock for air, ungenerated chunk.
+##
+##         Block Types are a planned config option. This will be
+##         the above blocks to check on each option as safe/unsafe/passthrough
+##         If these blocks need to be changed at any point the it can be done
+##         with ease, and can be used elswhere in the iCommands framework.
+proc(_teleportSafe, @player, @coords,
+
+    ##TODO: Pop a sq region check in here for flagged 
+    ## game-mode:SURVIVAL regions (then even if creative run the checks)
+    ## entry:DENY regions (they are deny for a reason)
+    
+    assign(@issafe, false)
+    if(equals_ic(pmode(@player), 'survival')) {
+        @issafe = true
+    ,#Esle
+    
+        ## TODO: 
+        ## Lets make sure we have valid data on this. Internal exception
+        ## cast, abort the checks, continue out with return true
+        ## and no notifications. (like this never happend!)
+        if(is_array(@coords) && array_index_exists(@coords, 3)) {
+            ## Block Types
+            assign(@safe, array(0, 8, 9, 111, 65, 106))
+            assign(@unsafe, array(10, 11, 51))
+            assign(@passthrough, array(6, 31, 32, 37, 38, 39, 40, 50, 68, 78, 321, 323, 389, 390, 69, 75, 76, 77, 131, 143, 331))
+            
+            #Set at y: at checkable levels if input is more than world range hight/depth
+            if(integer(@coords[1]) <= 5, @coords[1] = 5)
+            if(integer(@coords[1]) >= 250, @coords[1] = 250)
+            
+            #Real position fix. [ploc() gives wrong; 1 block column offset to the east]
+            assign(@rp, array(integer(@coords[0] - 1), integer(@coords[1] + 0), integer(@coords[2] + 0), @coords[3]))
+            
+            #Array of truth
+            assign(@truth, array())
+            
+            #Below feet hight, true if block is Not = @unsafe
+            if(not(array_contains(@unsafe, split(':', get_block_at(array(@rp[0], @rp[1] + 0, @rp[2], @rp[3])))[0]))) {
+                array_push(@truth, true) , array_push(@truth, false) 
+            }
+            #At leg hight, true if block is Not = @unsafe
+            if(not(array_contains(@unsafe, split(':', get_block_at(array(@rp[0], @rp[1] + 1, @rp[2], @rp[3])))[0]))) {
+                array_push(@truth, true) , array_push(@truth, false) 
+            }
+            #At head hight, true if block is = @safe OR @passthrough
+            if(array_contains(@safe, split(':', get_block_at(array(@rp[0], @rp[1] + 2, @rp[2], @rp[3])))[0]) ##OR
+            || array_contains(@passthrough, split(':', get_block_at(array(@rp[0], @rp[1] + 2, @rp[2], @rp[3])))[0])) {
+                array_push(@truth, true) , array_push(@truth, false) 
+            }
+            #Above head hight, true if block is Not = @unsafe
+            if(not(array_contains(@unsafe, split(':', get_block_at(array(@rp[0], @rp[1] + 3, @rp[2], @rp[3])))[0]))) {
+                array_push(@truth, true) , array_push(@truth, false) 
+            }
+        }
+        if(not(array_contains(@truth, false))) {
+            @issafe = true
+        }
+    }
+    return(boolean(@issafe))
 )

@@ -31,6 +31,7 @@ proc(_iCommand,
         ## Commands that require '- commandhelper.alias.moderator'
         array(Moderator, array(
             concat('d', '|', 'AdminChat', '|', '/a', '|', 'Private chat chanel for Moderator+.'),
+            concat('d', '|', 'GetBiome', '|', '/getbiome', '|', 'Tool for finding/teleporting biome.'),
                 
         )),
         ## Commands that require '- commandhelper.alias.miniadmin'
@@ -51,6 +52,7 @@ proc(_iCommand,
     ))
     foreach(@array, @subarray) {
         if(not(equals_ic(trim(@subarray[1][0]), null))) {
+            msg('')
             msg(concat(color(7), ' ', _rankTag(@subarray[0]), '+'))
             foreach(@subarray[1], @command) {
                 assign(@a, split('|', @command))

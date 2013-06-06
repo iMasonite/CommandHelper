@@ -6,7 +6,7 @@ iMasonite's __iCommands [1.1.2]__
 #### Author: iMasonite.
 #### Server: EST Minecraft Server *MC1.5.2* http://mc.mindhackers.org/
 -------------------------------------------------------------
-##### Dev Enviroment: *MC1.4.7*
+##### Dev Enviroment: *MC1.5.1-R0.1*
 ##### CommandHelper: *1453-5605f4b*
 -------------------------------------------------------------
 This work is licensed under a *Creative Commons Attribution 3.0 Unported License.*<br/>

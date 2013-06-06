@@ -4,7 +4,7 @@
 ## will see and be able to use. This is so Ranked Players can 
 ## chat among one another without your normal unranked players 
 ## knowing about it.
-## Usage:
+## Usage Example:
 ##      _adminChat(@sender, @message)
 ##
  proc(_adminChat, @sender, @message,
