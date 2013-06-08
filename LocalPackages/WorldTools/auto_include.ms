@@ -52,7 +52,7 @@ proc(_getBiome, @xcoord, @ycoord, @zcoord, @world, @player,
             ## TODO: Add a hight check for unsafe hight as well as the already inside walls, lava ect. checks
             if(equals(_teleportSafe(@player, @ploc), false)) {
                 msg(concat(_chatFormat('4', 'GetBiome', 'd', 'Arhhh!', 'f'), 'You were in an unsafe location..'))
-                ##TODO: recurse up/down for a free space in code rather than the sudo below
+                ##TODO: recurse up/down for a free space (in code) rather than the sudo below
                 sudo('/unstuck')
             }
             clear_value(@save)
@@ -140,5 +140,138 @@ proc(_getBiomeSub, @xcoord, @zcoord, @world, @teleport,
                 )
             )
         , array(InvalidWorldException, CastException)
+    )
+)
+
+
+## ---------- Procedure SentinelMain ----------
+## WorldGuard region information display. Simply for a better format & layout 
+## for speed reading instead of putting your eyeball on the screen to read the 
+## soup that is WorldGuard display.
+##
+## Usage:
+##      _SentinelMain(stats, all, -null, @player, @world)
+##
+## Notes: cant find the parent flag information yet.
+##
+proc(_SentinelMain, @request, @data, @flags, @player, @world,
+    
+    ## Info and Usage
+    if(equals(@request, '')) {
+        msg('')
+        msg(concat(_chatFormat('4', 'Sentinel', 'd', 'Info', 'f'), 'Get WorldGuard region information'))
+        msg(concat(_chatFormat('4', 'Sentinel', 'd', 'Usage', 'f'), '/sentinel stats <all>'))
+        msg(concat(_chatFormat('4', 'Sentinel', 'd', 'Usage', 'f'), '/sentinel info <region>'))
+        die()
+    }
+    ## Permission buffer
+    if(not(has_permission(@player, 'commandhelper.alias.moderator'))) {
+        die(concat(color(c)'[Sentinel]: You are not permitted to use this command!'))
+    }
+    
+    ## Clean up flags, replace whitespace with single space and split the values up.
+    ## Assign default data if not supplied.
+    ## This is a PLANNED section for a number of variables passed in, 
+    ## such as /sentinel stats <playername> -m -o (look up all regions for a user as owner/member ect)
+    #assign(@arflags, split(' ', reg_replace('\\s+', ' ', @flags)))
+    if(equals(@request, stats) && equals(@data, '')) {
+        @data = all
+    }
+
+    ## Command Filter
+    switch(@request,
+        stats,
+            if(equals(@data, 'all')) {
+                # assign(@rflagcreative, -1)
+                # assign(@rflagpvp, -1)
+                # assign(@rflagshops, -1)
+                ##TODO:
+                ## Recurse flags in all regions
+                msg('')
+                msg(concat(_chatFormat('4', 'Sentinel', 'd', 'World Stats', 'f'), concat('Regions in: ', color(6), @world)))
+                msg(concat(_chatFormat('4', 'Sentinel', 'd', 'Region Count', '6'), array_size(sk_all_regions(@world))))
+                # msg(concat(_chatFormat('4', 'Sentinel', 'd', 'Flagged: Creative', '6'), @rflagcreative))
+                # msg(concat(_chatFormat('4', 'Sentinel', 'd', 'Flagged: PVP', '6'), @rflagpvp))
+                # msg(concat(_chatFormat('4', 'Sentinel', 'd', 'Flagged: Shops', '6'), @rflagshops))
+                die()
+            } else {
+                ## This is where the player variable will be handled and any flags passed.
+                msg(concat(color(c) '[iCommands]: Oops! I just ran over a squirrel! RoadKill!'))
+                die()
+            }
+        ,
+        info,
+            if(equals(@data, '')) {
+                msg('')
+                msg(concat(_chatFormat('4', 'Sentinel', 'd', 'Info', 'f'), 'Please supply a region name!'))
+                die()
+            }
+            assign(@regiondata, _getSq_RegionData(@data, @world, @player, Sentinel))
+            
+            msg(concat(color(f), ' ================================================'))
+            msg(concat(_chatFormat('4', 'Sentinel', 'd', 'Region Info', 'f'), @data))
+            msg(concat(color(f), ' -------------------'))
+
+            #get position coords
+            assign(@pos1, split(',', @regiondata[0][0]))
+            assign(@pos2, split(',', @regiondata[0][1]))
+            
+            msg(concat(color(e), ' Position #1', color(7), ': ', color(6), _coordFormat(@pos1)))
+            msg(concat(color(e), ' Position #2', color(7), ': ', color(6), _coordFormat(@pos2)))
+            msg(concat(color(e), ' Priority: ', color(6), integer(@regiondata[4]), color(e), ' | Volume: ', color(6), integer(@regiondata[5]), color(e), ' Blocks'))
+            
+            if(not(array_size(@regiondata[1]) == 0)) {
+                msg(concat(color(e), ' Owners: '))
+                foreach(@regiondata[1], @owner) {
+                    msg(concat(color(d), '    - ', @owner))
+                }
+            }
+
+            if(not(array_size(@regiondata[2]) == 0)) {
+                msg(concat(color(e), ' Members: '))
+                foreach(@regiondata[2], @member) {
+                    msg(concat(color(d), '    - ', @member))
+                }
+            }
+            
+            if(not(array_size(@regiondata[3]) == 0)) {
+                msg(concat(color(e), ' Flags: '))
+                foreach(@regiondata[3], @flag) {
+                    #Tidy up the flags
+            
+                    switch(to_lower(@flag[0])) {array_contains_ic
+                        'teleport',
+                            assign(@clean, _teleFlagClean(@flag))
+                            msg(concat(color(e), '    - ', color(e), @flag[0], color(7), ': ', color(b),  _coordFormat(@clean)))
+                        ,
+                        # 'game-mode',
+                            # if(equals_ic(@flag[1], 'creative')) {
+                                # msg(concat(color(4), '   >> ', color(a), to_upper(@flag[0]), color(7), ': ', color(c), to_upper(@flag[1])))
+                            # ,#else
+                                # msg(concat(color(e), '    - ', color(e), @flag[0], color(7), ': ', color(a), to_lower(@flag[1])))
+                            # }
+                        # ,
+                        array('allow-shop', 'chest-shop', 'chestshop', 'pvp', 'game-mode'),
+                            assign(@suspect, array(allow, true, yes))
+                            if(array_contains_ic(@suspect, @flag[1])) {
+                                msg(concat(color(4), '   >> ', color(a), to_upper(@flag[0]), color(7), ': ', color(c), to_upper(@flag[1])))
+                            ,#else
+                                msg(concat(color(e), '    - ', color(e), @flag[0], color(7), ': ', color(b), to_lower(@flag[1])))
+                            }
+                        ,
+                        #Case else   
+                                msg(concat(color(e), '    - ', color(e), @flag[0], color(7), ': ', color(b), to_lower(@flag[1])))
+                    }
+                }
+            }
+            msg(concat(color(f), ' ================================================'))
+        ,
+        value,
+            msg(concat(color(c) '[iCommands]: Oops! I just ran over a squirrel! RoadKill!'))
+            die()
+        , 
+        #Case Else:
+            msg(concat(color(c) '[iCommands]: Oops! I just ran over a squirrel! RoadKill!'))
+            die()
     )
 )

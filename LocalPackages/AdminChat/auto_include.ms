@@ -18,14 +18,14 @@
         die()
     }
     ## Standard Permission Prechecks
-    if(not(has_permission(@sender, 'commandhelper.alias.manager'))) {
+    if(not(has_permission(@sender, 'commandhelper.alias.moderator'))) {
         die(concat(color(c)'[AdminChat]: You are not permitted to use this command!'))
     }
     # Format the message to be sent to all players.  
     # Collecting the group colour from _getExGroup
     assign(@formattedMsg, 
         concat(
-            _chatFormat('4', 'AdminChat', array_get(_getExGroup(@senderName), 1), @senderName, 'f'), 
+            _chatFormat('4', 'AdminChat', array_get(_getExGroup(@sender), 1), @sender, 'f'), 
                 sconcat(@message)
         )
     )       

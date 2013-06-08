@@ -157,7 +157,7 @@ proc(_teleportSafe, @player, @coords,
     ## entry:DENY regions (they are deny for a reason)
     
     assign(@issafe, false)
-    if(equals_ic(pmode(@player), 'survival')) {
+    if(equals_ic(pmode(@player), 'CREATIVE')) {
         @issafe = true
     ,#Esle
     
@@ -205,3 +205,94 @@ proc(_teleportSafe, @player, @coords,
     }
     return(boolean(@issafe))
 )
+## ---------- Reusable Return Procedure getSq_RegionData ----------
+## Takes a region name for the current world and tests if
+## it exists in this world, if it does not then the exception 
+## is handled and the info displayed to the user.
+##
+## Usage:
+##      _getSq_RegionData(@region, @world, @player, @extension)
+## Returns:
+##      Array of the supplied region's data.
+##
+proc(_getSq_RegionData, @region, @world, @player, @extension,
+    try(
+        assign(@regiondata, sk_region_info(@region, @world))
+        
+        , @exception, 
+            if(equals(array_get(@exception, 0), PluginInternalException)) {
+                msg(concat(_chatFormat('4', @extension, 'd', 'Region Not Found!', 'f'), 'In World: ', color(c), @world))
+                msg('')
+                die()
+            }
+        ,
+        array(PluginInternalException, CastException)
+    )
+    return (
+        @regiondata
+    )
+)
+## ---------- Reusable Procedure validateWorlds ----------
+## Checks if a world exits (loaded) and if it fails then
+## it will inform the user what worlds are loaded. 
+##
+## If @justdefault is true it wont inform the user it will just
+## return the players current world.
+##
+## Usage:
+##      _validateWorlds(@world, @extension, @justdefault)
+## Returns:
+##      World Name after success testing or default if required
+##
+# proc(_validateWorlds, @world, @player, @extension, @justdefault,
+    # assign(@worldsloaded, array())
+    # foreach(get_worlds(), @worldloaded) {
+        # array_push(@worldsloaded, @worldloaded)
+    # }
+    # if(not(array_contains(@worldsloaded, @world))) {
+        # msg('')
+        # msg(concat(_chatFormat('4', @extension, 'd', 'Invalid World', 'f'), 'The World: ', color(c), @world))
+        # msg(concat(_chatFormat('4', @extension, 'd', 'Invalid World', 'f'), 'does not exist, please try again...' ))
+        # assign(@loaded, '')
+        # foreach(get_worlds(), @worlds) {
+            # @loaded = concat(@loaded, concat('\'', @worlds, '\' '))
+        # }
+        # msg(concat(_chatFormat('4', @extension, 'd', 'Worlds', 'e'), @loaded))
+        # die()
+    # }
+    # assign(@return, @world)
+    # if(equals(@justdefault, false)) {
+        # @return = ploc(@player)[3]
+    # , 
+        # @return = @world
+    # }
+    # msg('@return' : @return)
+    # return(
+        # @return
+    # )
+# )
+
+
+## ---------- Reusable Return Procedure teleFlagClean ----------
+## The flag for teleport is a huge soup of a double with far
+## too many decimals. This solves that problem.
+##
+## Usage:
+##      _teleFlagClean(ArrayOfCoords)
+## Returns:
+##      Formatted array of Coordinates x y z. equiv to i.e. {-47, 64, 897}
+##
+proc(_teleFlagClean, @flagArray,
+    if(equals_ic(@flagArray[0], 'teleport'),
+        assign(@getme, split(':', @flagArray[1]))
+        assign(@editme, trim(@getme[2]))
+        assign(@replme, replace(replace(@editme, ')', ''), '(', ''))
+        assign(@chopme, split(',', @replme))
+        assign(@clean, array(integer(@chopme[0]), integer(@chopme[1]), integer(@chopme[2])))
+        return (
+            @clean
+        )
+    )
+)
+
+

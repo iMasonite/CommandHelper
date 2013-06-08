@@ -36,7 +36,7 @@ proc(_iCommand,
         )),
         ## Commands that require '- commandhelper.alias.miniadmin'
         array(MiniAdmin, array(
-            concat(null),
+            concat('d', '|', 'Sentinel', '|', '/sentinel', '|', 'Bespoke WG region display'),
                 
         )),
         ## Commands that require '- commandhelper.alias.manager'
