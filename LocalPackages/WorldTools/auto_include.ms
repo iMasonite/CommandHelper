@@ -211,14 +211,19 @@ proc(_SentinelMain, @request, @data, @flags, @player, @world,
             msg(concat(color(f), ' ================================================'))
             msg(concat(_chatFormat('4', 'Sentinel', 'd', 'Region Info', 'f'), @data))
             msg(concat(color(f), ' -------------------'))
-
+            
             #get position coords
             assign(@pos1, split(',', @regiondata[0][0]))
             assign(@pos2, split(',', @regiondata[0][1]))
+            if(integer(@regiondata[5]) != 0) {
+                msg(concat(color(e), ' Position #1', color(7), ': ', color(6), _coordFormat(@pos1)))
+                msg(concat(color(e), ' Position #2', color(7), ': ', color(6), _coordFormat(@pos2)))
+                msg(concat(color(e), ' Priority: ', color(6), integer(@regiondata[4]), color(e), ' | Volume: ', color(6), integer(@regiondata[5]), color(e), ' Blocks'))
+            } else {
+                msg(concat(color(e), ' Location', color(7), ': ', color(6), _coordFormat(@pos1)))
+                msg(concat(color(e), ' Priority: ', color(6), integer(@regiondata[4]), color(e), ' | Region Type: ', color(6), 'Polygon'))
             
-            msg(concat(color(e), ' Position #1', color(7), ': ', color(6), _coordFormat(@pos1)))
-            msg(concat(color(e), ' Position #2', color(7), ': ', color(6), _coordFormat(@pos2)))
-            msg(concat(color(e), ' Priority: ', color(6), integer(@regiondata[4]), color(e), ' | Volume: ', color(6), integer(@regiondata[5]), color(e), ' Blocks'))
+            }
             
             if(not(array_size(@regiondata[1]) == 0)) {
                 msg(concat(color(e), ' Owners: '))
