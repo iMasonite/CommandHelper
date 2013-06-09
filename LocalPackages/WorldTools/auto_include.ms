@@ -244,13 +244,6 @@ proc(_SentinelMain, @request, @data, @flags, @player, @world,
                             assign(@clean, _teleFlagClean(@flag))
                             msg(concat(color(e), '    - ', color(e), @flag[0], color(7), ': ', color(b),  _coordFormat(@clean)))
                         ,
-                        # 'game-mode',
-                            # if(equals_ic(@flag[1], 'creative')) {
-                                # msg(concat(color(4), '   >> ', color(a), to_upper(@flag[0]), color(7), ': ', color(c), to_upper(@flag[1])))
-                            # ,#else
-                                # msg(concat(color(e), '    - ', color(e), @flag[0], color(7), ': ', color(a), to_lower(@flag[1])))
-                            # }
-                        # ,
                         array('allow-shop', 'chest-shop', 'chestshop', 'pvp', 'game-mode'),
                             assign(@suspect, array(allow, true, yes))
                             if(array_contains_ic(@suspect, @flag[1])) {

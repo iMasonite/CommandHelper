@@ -1,0 +1,5 @@
+## ----- Expanded Broadcast ---------------------------------------------------------------
+## Broadcast system that can accept additional flags to alter the type of broadcast. 
+*:/icast [$cast] [$] = >>>
+    _iCast($cast $, player())
+ <<<

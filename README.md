@@ -1,4 +1,4 @@
-iMasonite's __iCommands [1.1.2]__
+iMasonite's __iCommands [1.2.0]__
 =============
 
 ###*Various Commands using sk89q CommandHelper plugin*
