@@ -21,6 +21,7 @@ proc(_iCommand,
         ## Commands that either have no permission check or require '- commandhelper.alias.builder'
         array(Builder, array(
             concat('d', '|', 'iCommand', '|', '/icommand', '|', 'Root of ', @author, '\'s commands.'),
+            concat('d', '|', 'RankInfo', '|', '/rank', '|', 'Message information on ranks!'),
                 
         )),
         ## Commands that require '- commandhelper.alias.vip'
@@ -32,6 +33,7 @@ proc(_iCommand,
         array(Moderator, array(
             concat('d', '|', 'AdminChat', '|', '/a', '|', 'Private chat chanel for Moderator+.'),
             concat('d', '|', 'GetBiome', '|', '/getbiome', '|', 'Tool for finding/teleporting biome.'),
+            concat('d', '|', 'iCast', '|', '/icast', '|', 'Expanded Broadcast.'),
                 
         )),
         ## Commands that require '- commandhelper.alias.miniadmin'
