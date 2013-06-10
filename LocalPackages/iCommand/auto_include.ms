@@ -43,7 +43,7 @@ proc(_iCommand,
         )),
         ## Commands that require '- commandhelper.alias.manager'
         array(Manager, array(
-            concat(null),
+            concat('d', '|', 'Veto', '|', '/veto', '|', 'Bespoke banning system.'),
                 
         )),
         ## Commands that require '- commandhelper.alias.admin'

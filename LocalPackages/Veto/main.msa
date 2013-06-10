@@ -1,0 +1,9 @@
+## ----- Ranked Players ban command ---------------------------------------------
+## Users in Ranked positions that are exempt from ban action that can't 
+## easily be banned via the usual channels can be banned using this command. 
+## This also extends an in game mail message to the user informing them about 
+## the ban they received and instructs the user where to find the 
+## relevant information on the forum.
+*:/veto [$user] [$group] [$time='12h'] [$reason='The Rank Ban Hammer Has Spoken!'] [$] = >>>
+    _Veto($user, $group, $time, $reason $, player())
+<<<
