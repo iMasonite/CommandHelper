@@ -5,7 +5,7 @@
 ##
 bind(player_join, null, null, @event,
 
-    assign(@saved, get_value('test.ninja.save.names'))
+    assign(@saved, get_value('ninja.save.names'))
     if(@saved == 'null') {
         @saved = array()
     }
@@ -21,7 +21,7 @@ bind(player_join, null, null, @event,
 ##
 bind(player_quit, null, null, @event,
 
-    assign(@saved, get_value(concat('test.ninja.save.names')))
+    assign(@saved, get_value(concat('ninja.save.names')))
     if(@saved == 'null') {
         @saved = array()
     }
