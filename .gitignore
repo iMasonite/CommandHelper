@@ -109,3 +109,4 @@ UpgradeLog*.XML
 database/
 *.session
 crap.ms
+LocalPackages/Demo/

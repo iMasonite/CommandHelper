@@ -1,15 +1,14 @@
-## ---------- Reusable Return Procedure chatFormat ----------
-## Most chat messages to the user encompass a tag and
-## formatting. Keeping the everything on a whole friendly
-## on the eyes and easy to navigate in-game and code.
-##
-## Uniform aspect on a global scale of all chat bound messages.
+## ---------- Procedure cmdStats ----------
+## Store usage data of each command.
 ##
 ## Usage Example:
-##      _chatFormat('d', iCommand, 'e', 'Information Text', 'f')
-## Returns:
-##      Formatted String of text to be used in the chat, Example: &f[&diCommand&f] &eInformation Text&7: &f
+##      =============
 ##
+proc(_cmdStats, @cmd, @player,
+
+
+)
+## ---------- Reusable Return Procedure chatFormat ----------
 proc(_chatFormat, @prefixcolor, @prefix, @textcolor, @text, @messagecolor,
     return (
         concat(
@@ -27,15 +26,8 @@ proc(_chatFormat, @prefixcolor, @prefix, @textcolor, @text, @messagecolor,
         )
     )
 )
+
 ## ---------- Reusable Return Procedure coordFormat ----------
-## Coordinates format output for the chat to make the coordinates
-## easy to read in game.
-##
-## Usage:
-##      _coordFormat(array(-47, 64, -897, world))
-## Returns:
-##      Formatted array of Coordinates x y z. equiv to i.e. x: -47 y: 64 z: 897
-##
 proc(_coordFormat, @coordArray,
     assign(@cleanme,
         concat(
@@ -53,17 +45,7 @@ proc(_coordFormat, @coordArray,
     )
 )
 
-
 ## ---------- Reusable Return Procedure rankTag ----------
-## Place to hold this so its reusable and uniform.
-## If it needs altering later, no searching for all instances
-## simply edit in this one place.
-##
-## Usage Example:
-##      _rankTag(4)
-## Returns:
-##      Formatted String of text, Example: &f[&9Manager&f]
-##
 proc(_rankTag, @rankReq,
 
     switch(to_lower(@rankReq)) {
@@ -88,22 +70,7 @@ proc(_rankTag, @rankReq,
     }
 )
 
-
 ## ---------- Reusable Return Procedure getExGroup ----------
-## Get the exact group of the player and return the name
-## and associated color of the tag of the rank.
-##
-## Usage Example:
-##      _getExGroup(player())
-## Returns:
-##      Array of values, Example: {"Admin", "c"}
-##
-## Notes: Must search in reverse order or an admin would match
-##        a builder or VIP ect ect...
-##        For now this is using pgroup(@player) but i would like it to read
-##        GroupManager's YML file so this can check offline players.
-##        This is somthing of a TODO.
-##
 proc(_getExGroup, @player,
  ifelse(array_contains_ic(pgroup(@player), Admin),
             return(array(Admin, c))
@@ -129,27 +96,6 @@ proc(_getExGroup, @player,
 
 
 ## ---------- Reusable Return Procedure teleportSafe ----------
-## Takes an array of coordinates in ploc(@player) format and
-## runs it through a battery of checks to see if the destination
-## is safe for a player in survival mode to teleport.
-##
-## Usage Example:
-##      _teleportSafe(array(-47, 64, -897, world))
-## Returns:
-##      boolean
-##
-## Notes: For now, this will check blocks in range;
-##         - 1 Above head hight
-##         - 1 At head hight
-##         - 1 At leg hight
-##         - 1 Below feet hight
-##   TODO: - gte >= 10 below feet hight (air, falling losing 2.5 hearts)
-##   TODO: - 1 at bedrock for air, ungenerated chunk.
-##
-##         Block Types are a planned config option. This will be
-##         the above blocks to check on each option as safe/unsafe/passthrough
-##         If these blocks need to be changed at any point the it can be done
-##         with ease, and can be used elswhere in the iCommands framework.
 proc(_teleportSafe, @player, @coords,
 
     ##TODO: Pop a sq region check in here for flagged 
@@ -206,15 +152,6 @@ proc(_teleportSafe, @player, @coords,
     return(boolean(@issafe))
 )
 ## ---------- Reusable Return Procedure getSq_RegionData ----------
-## Takes a region name for the current world and tests if
-## it exists in this world, if it does not then the exception 
-## is handled and the info displayed to the user.
-##
-## Usage:
-##      _getSq_RegionData(@region, @world, @player, @extension)
-## Returns:
-##      Array of the supplied region's data.
-##
 proc(_getSq_RegionData, @region, @world, @player, @extension,
     try(
         assign(@regiondata, sk_region_info(@region, @world))
@@ -274,16 +211,8 @@ proc(_getSq_RegionData, @region, @world, @player, @extension,
 
 
 ## ---------- Reusable Return Procedure teleFlagClean ----------
-## The flag for teleport is a huge soup of a double with far
-## too many decimals. This solves that problem.
-##
-## Usage:
-##      _teleFlagClean(ArrayOfCoords)
-## Returns:
-##      Formatted array of Coordinates x y z. equiv to i.e. {-47, 64, 897}
-##
 proc(_teleFlagClean, @flagArray,
-    if(equals_ic(@flagArray[0], 'teleport'),
+    if(equals_ic(@flagArray[0], 'teleport')) {
         assign(@getme, split(':', @flagArray[1]))
         assign(@editme, trim(@getme[2]))
         assign(@replme, replace(replace(@editme, ')', ''), '(', ''))
@@ -292,7 +221,7 @@ proc(_teleFlagClean, @flagArray,
         return (
             @clean
         )
-    )
+    }
 )
 
 

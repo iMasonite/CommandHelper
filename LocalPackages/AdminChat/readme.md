@@ -9,5 +9,5 @@ knowing about it.</p>
 
 ####  Usage:
 * Commands:
-  * Main Command: ```/a```
-  * Message Command: ```/a <message>```
+	* Main Command: ```/a```
+	* Message Command: ```/a <message>```

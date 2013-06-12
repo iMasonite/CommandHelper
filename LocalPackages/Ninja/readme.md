@@ -1,5 +1,5 @@
 #iMasonite's : iCommands > Ninja
-###*Join the server unannounced.*
+###*Join the server unannounced and Hide from players*
 
 <p><strong>Ninja Mode!</strong></p>
 <p>Gets rid of the pesky joined/left the game announcement so a 

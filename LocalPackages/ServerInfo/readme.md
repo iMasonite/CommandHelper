@@ -5,4 +5,4 @@
 
 ####  Usage:
 * Commands:
-  * Main Command: ```/rank```
+	* Main Command: ```/rank```

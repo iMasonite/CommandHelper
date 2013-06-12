@@ -11,9 +11,9 @@ are blocked and such.</p>
 
 ####  Usage:
 * Commands:
-  * Main Command: ```/icast```
-  * Default Server Website: ```/icast server```
-  * Default Server Forum: ```/icast forum```
-  * Default Server DynMap: ```/icast dyn```
-  * Default Server Statistics: ```/icast stats```
-  * Custom Command: ```/icast <flag> <message>```
+	* Main Command: ```/icast```
+	* Default Server Website: ```/icast server```
+	* Default Server Forum: ```/icast forum```
+	* Default Server DynMap: ```/icast dyn```
+	* Default Server Statistics: ```/icast stats```
+	* Custom Command: ```/icast <flag> <message>```
