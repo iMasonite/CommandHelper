@@ -44,6 +44,7 @@ proc(_iCommand,
         ## Commands that require '- commandhelper.alias.manager'
         array(Manager, array(
             concat('d', '|', 'Veto', '|', '/veto', '|', 'Bespoke banning system.'),
+            concat('d', '|', 'Ninja', '|', '/ninja', '|', 'Ninja Mode :D'),
                 
         )),
         ## Commands that require '- commandhelper.alias.admin'

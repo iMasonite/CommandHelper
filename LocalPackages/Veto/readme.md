@@ -15,14 +15,14 @@ links to the infractions page and terms and conditions.</p>
 
 ####  Usage:
 * Commands:
-  * Main Command: ```/veto```
-  * Ban Command: ```/veto <user> <inGroup> <time> <reason>```
-  * Confirm Command: ```/veto confirm```
-  * Cancel Command: ```/veto cancel```
+	* Main Command: ```/veto```
+	* Ban Command: ```/veto <user> <inGroup> <time> <reason>```
+	* Confirm Command: ```/veto confirm```
+	* Cancel Command: ```/veto cancel```
 
   
 ####  TODO:
 * Additions:
-  * Possible storage of strike data.
-    * If so, more commands such as ```/veto strikes <player> [add|edit:#|clear:#|clear:all]```
-  * Possible, Make aware, the Managers/Admins of the server about recent bans on login/command.
+	* Possible storage of strike data.
+		* If so, more commands such as ```/veto strikes <player> [add|edit:#|clear:#|clear:all]```
+	* Possible, Make aware, the Managers/Admins of the server about recent bans on login/command.
