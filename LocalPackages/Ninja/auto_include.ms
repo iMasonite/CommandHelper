@@ -29,8 +29,10 @@ proc(_Ninja, @request, @player,
             if(!array_contains_ic(@save_on, @player)) {
                 array_push(@save_on, @player)
                 store_value(concat('ninja.save.names'), @save_on)
+                msg(concat(_chatFormat('4', 'Ninja', 'd', 'Mode Change', 'a'), 'Ninja Mode - ON'))
+            } else {
+                msg(concat(_chatFormat('4', 'Ninja', 'd', 'Opps', 'a'), 'Ninja Mode is already ON'))
             }
-            msg(concat(_chatFormat('4', 'Ninja', 'd', 'Mode Change', 'a'), 'Ninja Mode - ON'))
         ,
         'off',
             assign(@save_off, get_value(concat('ninja.save.names')))

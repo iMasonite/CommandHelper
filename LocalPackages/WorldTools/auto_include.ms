@@ -243,8 +243,7 @@ proc(_SentinelMain, @request, @data, @flags, @player, @world,
                 msg(concat(color(e), ' Flags: '))
                 foreach(@regiondata[3], @flag) {
                     #Tidy up the flags
-            
-                    switch(to_lower(@flag[0])) {array_contains_ic
+                    switch(to_lower(@flag[0])) {
                         'teleport',
                             assign(@clean, _teleFlagClean(@flag))
                             msg(concat(color(e), '    - ', color(e), @flag[0], color(7), ': ', color(b),  _coordFormat(@clean)))
