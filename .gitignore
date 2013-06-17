@@ -110,3 +110,4 @@ database/
 *.session
 crap.ms
 LocalPackages/Demo/
+*.htm

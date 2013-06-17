@@ -22,6 +22,7 @@ proc(_iCommand,
         array(Builder, array(
             concat('d', '|', 'iCommand', '|', '/icommand', '|', 'Root of ', @author, '\'s commands.'),
             concat('d', '|', 'RankInfo', '|', '/rank', '|', 'Message information on ranks!'),
+            concat('d', '|', 'Shops', '|', '/shops', '|', 'Shop information serverwide.'),
                 
         )),
         ## Commands that require '- commandhelper.alias.vip'
