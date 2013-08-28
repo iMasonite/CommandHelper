@@ -71,6 +71,7 @@ proc(_shopActionsRegister, @zone, @owner, @description, @player, @world,
         die()
     }
 )
+#endproc
 
 ## ---------- Procedure shopActionsEdit ----------
 proc(_shopActionsEdit, @zone, @owner, @description, @player, @world,
@@ -125,6 +126,8 @@ proc(_shopActionsEdit, @zone, @owner, @description, @player, @world,
         }
     }
 )
+#endproc
+
 ## ---------- Procedure shopActionsRemove ----------
 proc(_shopActionsRemove, @zone, @player, @world,
     ## Info and Usage on the '/shops remove' command
@@ -158,20 +161,23 @@ proc(_shopActionsRemove, @zone, @player, @world,
         }
     }
 )
+#endproc
+
 ## ---------- Procedure shopActionsList ----------
 proc(_shopActionsList, @zone, @player, @world,
     
     if(@zone == '') {
-        msg(concat(_chatFormat('4', 'Shops', 'd', 'List', 'f'), 'All Shopping Zones on the server.'))
-        
         if(has_value(concat('shops.list'))) {
             assign(@list, get_value(concat('shops.list')))
-            foreach(@list, @registeredzone) {
-                msg(concat(color(e), '    - ', @registeredzone))
+            if(array_size(@list) > 0) {
+                msg(concat(_chatFormat('4', 'Shops', 'd', 'List', 'f'), 'All Shopping Zones on the server.'))
+                foreach(@list, @registeredzone) {
+                    msg(concat(color(e), '    - ', @registeredzone))
+                }
+                msg(concat(_chatFormat('4', 'Shops', 'd', 'More Info', 'b'), '/shops list <zone>'))
+            } else {
+                msg(concat(_chatFormat('4', 'Shops', 'd', 'List', 'c'), 'There are no shops currently licenced.'))
             }
-            msg(concat(_chatFormat('4', 'Shops', 'd', 'More Info', 'b'), '/shops list <zone>'))
-        } else {
-            msg(concat(_chatFormat('4', 'Shops', 'd', 'List', 'c'), 'There are no shops currently licenced.'))
         }
     } else {
         ## format the zone for namespace format requirements / prevent dupes
@@ -200,7 +206,13 @@ proc(_shopActionsList, @zone, @player, @world,
             '    ', color(b), 'World: ', color(e), @rworld)
             )
             msg(color(d)'--Stats--')
-            
+            msg(concat(color(e),
+            '    ', color(b), 'Shop Plots: ', color(e), @plots, '\n',
+            '    ', color(b), 'Shops Vacant: ', color(e), @vacant, '\n',
+            '    ', color(b), 'Customers, past week: ', color(e), @customersweek, '\n',
+            '    ', color(b), 'Customers, all time: ', color(e), @customersall)
+            )
+                        
             if(has_permission(player(), 'commandhelper.alias.manager') || has_permission(player(), 'icmd.override.shops.list.extra')) {
                 msg(color(d)'--Extra--')
                 msg(concat(color(e),
@@ -216,4 +228,53 @@ proc(_shopActionsList, @zone, @player, @world,
             }
         }
     }
+)
+#endproc
+
+## ---------- Procedure shopActionsList ----------
+proc(_shopActionsInit, @prefix, @player, @world,
+
+    ## Info and Usage on the '/shops initialize' command
+    if(@zone == '') {
+        msg('')
+        msg(concat(_chatFormat('4', 'Shops', 'd', 'Initialize', 'f'), '/shops initialize <prefix>'))
+            msg(concat(color(b), 
+                '  - <prefix> ', color(e), 'the prefix of the shop, i.e "ss-shp"\n', 
+                '  The prefix is the overall tag of each shop followed by the\n', 
+                '  floor i.e "gf" for ground floor "ff" for first floor and so\n', 
+                '  on. Each shop in the zone is required to have this in the\n',  
+                '  region name or the system simply will not work. An example\n', 
+                '  shop region name would be ', color(b), 'ss-shp-ff-47', color(e), 
+                ' or ', color(b), 'mm-unit-gf-81', color(e), '.'
+            ))
+        die()
+    } else {
+    
+    
+    }
+
+#endproc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 )

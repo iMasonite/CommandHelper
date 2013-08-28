@@ -19,6 +19,7 @@
     }
     ## Standard Permission Prechecks
     if(not(has_permission(@sender, 'commandhelper.alias.moderator'))) {
+        #TODO: Needs work on override perms
         die(concat(color(c)'[AdminChat]: You are not permitted to use this command!'))
     }
     # Format the message to be sent to all players.  
@@ -32,6 +33,7 @@
     ##Get the online players and match the groups, thus display the message    
     foreach(all_players(), @oPlayer) {
         if(has_permission(@oPlayer, 'commandhelper.alias.moderator')) {
+            #TODO: Needs work on override perms
             ## colorize any &# codes
             tmsg(@oPlayer, colorize(@formattedMsg))
         }

@@ -54,6 +54,11 @@
 			<td><em>Remove a shop licence from a region</em></td>
 			<td><strong><code>icmd.override.shops.remove</code></strong></td>
 		</tr>
+		<tr>
+			<td><strong><code>/shops initialize \<prefix\></code></strong></td>
+			<td><em>Initialize micro regions (the shops).</em></td>
+			<td><strong><code>icmd.override.shops.initialize</code></strong></td>
+		</tr>
 	</table>
 	<h3>Variables and their usage, \<required\> [optional]</h3>
 	<table style="width: 100%;">

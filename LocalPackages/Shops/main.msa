@@ -5,6 +5,13 @@
 
        
     switch(to_lower($task)) {
+        array('help', 'info'),
+            if(has_permission(player(), 'commandhelper.alias.builder')) {
+                msg('')
+                msg(concat(_chatFormat('4', 'Shops', 'd', 'Help', 'f'), 'Full documentation can be found at,'))
+                msg(concat(_chatFormat('4', 'Shops', 'd', 'GitHub', 'f'), 'http://goo.gl/0D90k'))
+            }
+        ,
         array('register', 'reg'),
             if(has_permission(player(), 'commandhelper.alias.manager') || has_permission(player(), 'icmd.override.shops.register')) {
                 _shopActionsRegister(to_lower($var1), $var2, $var3 $, player(), ploc(player())[3])
@@ -33,14 +40,23 @@
                 die(concat(color(c)'[Shops]: You are not permitted to use /shops list')) 
             }
         ,
+        array('initialize', 'init'),
+            if(has_permission(player(), 'commandhelper.alias.manager') || has_permission(player(), 'icmd.override.shops.initialize')) {
+                _shopActionsInit(to_lower($var1), player(), ploc(player())[3])
+            } else { 
+                die(concat(color(c)'[Shops]: You are not permitted to use /shops initialize')) 
+            }
+        ,
         #Case Else:
             msg('')
             msg(concat(_chatFormat('4', 'Shops', 'd', 'Info', 'f'), 'Various commands/tools for shops.'))
             assign(@zones, array())
             if(has_value(concat('shops.list'))) {
                 @zones =  get_value(concat('shops.list'))
-                msg(concat(color(d), '  Zones:'))
-                msg(concat(color(e), '    ', array_implode(@zones, ' / ')))
+                if(array_size(@zones) > 0) {
+                    msg(concat(color(d), '  Zones:'))
+                    msg(concat(color(e), '    ', array_implode(@zones, ' / ')))
+                }
             }
             msg(concat(color(d), '  Commands:'))
             msg(concat(color(b), '    /shops list', color(e), ' Summery info on zones in the server.'))
@@ -51,6 +67,7 @@
                 msg('')
                 msg(concat(color(d), '  Manage Shops:', color(7), ' Manager+ commands'))
                 msg(concat(color(b), '    /shops reg', color(e), ' Register a licence to a shop zone.'))
+                msg(concat(color(b), '    /shops initialize', color(e), ' Initialize micro regions (the shops).'))
                 msg(concat(color(b), '    /shops edit', color(e), ' Edit a licence for a shop zone.'))
                 msg(concat(color(b), '    /shops remove', color(e), ' Remove a licence from a shop zone.'))
                 #msg(concat(color(b), '    /shops create', color(e), ' Create a shop inside a zone.'))
