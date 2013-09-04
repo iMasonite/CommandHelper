@@ -9,3 +9,11 @@
 #
 ######################################################
 
+## ---------- Event Binder  player_join ----------
+bind(player_join, null, null, @event,
+    if(!has_permission(@player, 'commandhelper.alias.moderator')) {
+        run('/commandspy on')
+        run('/socialspy on')
+        die(concat(color(6)'[ServerJoin]: commandspy & socialspy enabled!'))
+    }
+)
