@@ -10,10 +10,13 @@
 ######################################################
 
 ## ---------- Event Binder  player_join ----------
+## If player joins the server and has the perms
+## Auto run the following.
 bind(player_join, null, null, @event,
-    if(!has_permission(@player, 'commandhelper.alias.moderator')) {
-        run('/commandspy on')
+    if(has_permission(@event['player'], 'commandhelper.alias.moderator')) {
         run('/socialspy on')
-        die(concat(color(6)'[ServerJoin]: commandspy & socialspy enabled!'))
+    }
+    if(has_permission(@event['player'], 'commandhelper.alias.manager')) {
+        run('/commandspy on')
     }
 )
