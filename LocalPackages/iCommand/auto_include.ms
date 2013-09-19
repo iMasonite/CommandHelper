@@ -20,7 +20,7 @@ proc(_iCommand,
     assign(@array, array(
         ## Commands that either have no permission check or require '- commandhelper.alias.builder'
         array(Builder, array(
-            concat('d', '|', 'iCommand', '|', '/icommand', '|', 'Root of ', @author, '\'s commands.'),
+            concat('d', '|', 'iCommand', '|', '/icommand', '|', 'Root of ', @author, '`s commands.'),
             concat('d', '|', 'RankInfo', '|', '/rank', '|', 'Message information on ranks!'),
             concat('d', '|', 'Shops', '|', '/shops', '|', 'Shop information serverwide.'),
                 

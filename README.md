@@ -35,8 +35,8 @@ iMasonite's __iCommands [2.2.0]__
 - HungerGames that has a persistent score system and announcement system (integrated with **variable triggers**)
 
 -------------------------------------------------------------
-##### Dev Enviroment: *MC1.5.2-R0.1*
-##### CommandHelper: version: "1504-5cbdb94" *v2246-c16f88d*
+##### Dev Enviroment: *Spigot-1091 (MC: 1.6.2) (1.6.2-R0.2-SNAPSHOT)*
+##### CommandHelper: version: "1568-970fdcd" *v1568-970fdcd*
 -------------------------------------------------------------
 This work is licensed under a *Creative Commons Attribution 3.0 Unported License.*<br/>
 http://creativecommons.org/licenses/by/3.0/deed.en_US<br/>
