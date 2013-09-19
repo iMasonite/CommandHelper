@@ -74,7 +74,7 @@ proc(_rankTag, @rankReq,
 
 ## ---------- Reusable Return Procedure getExGroup ----------
 proc(_getExGroup, @player,
- ifelse(pisop(@player)),
+ ifelse(pisop(@player),
             return(array(Operator, c))
         ,
         array_contains_ic(pgroup(@player), Owner),
