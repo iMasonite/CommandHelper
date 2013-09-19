@@ -53,6 +53,10 @@ proc(_iCommand,
             concat(null),
                 
         )),
+        ## Commands that require 'OPERATOR/CONSOLE'
+        array(Operator, array(
+            concat('d', '|', 'vPVP', '|', '/vpvp', '|', 'Targeted for VariableTriggers'),
+        )),
     ))
     foreach(@array, @subarray) {
         if(not(equals_ic(trim(@subarray[1][0]), null))) {

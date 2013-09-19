@@ -65,6 +65,8 @@ proc(_rankTag, @rankReq,
                 return (concat(color(f), '[', color(3), 'Admin', color(f), ']')),
             array(6, 'o', 'owner'),
                 return (concat(color(f), '[', color(4), 'Owner', color(f), ']')),
+            array(7, 'op', 'operator'),
+                return (concat(color(f), '[', color(4), 'Operator', color(f), ']')),
                 
                 return (concat(color(f), '[', color(f), 'Default', color(f), ']'))
     }
@@ -72,7 +74,10 @@ proc(_rankTag, @rankReq,
 
 ## ---------- Reusable Return Procedure getExGroup ----------
 proc(_getExGroup, @player,
- ifelse(array_contains_ic(pgroup(@player), Owner),
+ ifelse(pisop(@player)),
+            return(array(Operator, c))
+        ,
+        array_contains_ic(pgroup(@player), Owner),
             return(array(Owner, c))
         ,
         array_contains_ic(pgroup(@player), Manager),
