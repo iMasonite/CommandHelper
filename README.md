@@ -1,4 +1,4 @@
-iMasonite's __iCommands [2.3.0]__
+iMasonite's __iCommands [2.3.1]__
 =============
 
 ###*Various Commands using sk89q CommandHelper plugin*
@@ -41,8 +41,8 @@ iMasonite's __iCommands [2.3.0]__
 - HungerGames that has a persistent score system and announcement system (integrated with **variable triggers**)
 
 -------------------------------------------------------------
-##### Dev Enviroment: *Spigot-1091 (MC: 1.6.2) (1.6.2-R0.2-SNAPSHOT)*
-##### CommandHelper: version: "1568-970fdcd" *v1568-970fdcd*
+##### Dev Enviroment: *git-Spigot-1031 (MC: 1.6.2) (1.6.2-R0.1-SNAPSHOT)*
+##### CommandHelper: version: "v3.3.1-SNAPSHOT:2390-a79107a,master"
 -------------------------------------------------------------
 This work is licensed under a *Creative Commons Attribution 3.0 Unported License.*<br/>
 http://creativecommons.org/licenses/by/3.0/deed.en_US<br/>
