@@ -150,38 +150,57 @@ proc(_gMGroupData, @groupReq, @dataReq,
                             ' Please report this error to iMasonite')
         )
     }
-    if(!array_size(@ymlAry['groups']) == 0) {
-        if(!array_size(@ymlAry['groups'][@groupReq]) == 0) {
-            switch(@dataReq) {
-                array('default', 'def'),
-                    return (assign(@return, @ymlAry['groups'][@groupReq]['default']))
-                ,
-                array('inheritance', 'inh'),
-                    return (assign(@return, @ymlAry['groups'][@groupReq]['inheritance']))
-                ,
-                array('permissions', 'perms', 'perm'),
-                    return (assign(@return, @ymlAry['groups'][@groupReq]['permissions']))
-                , 
-                array('id'),
-                    return (assign(@return, @ymlAry['groups'][@groupReq]['info']['id']))
-                , 
-                array('purchasable', 'purch', 'buy'),
-                    return (assign(@return, @ymlAry['groups'][@groupReq]['info']['purchasable']))
-                , 
-                array('prefix', 'pre'),
-                    return (assign(@return, @ymlAry['groups'][@groupReq]['info']['prefix']))
-                , 
-                array('build'),
-                    return (assign(@return, @ymlAry['groups'][@groupReq]['info']['build']))
-                , 
-                array('suffix', 'suf'),
-                    return (assign(@return, @ymlAry['groups'][@groupReq]['info']['suffix']))
-                , 
-                #Case Else:
-                    return (assign(@return, 'Error Finding Data!'))
+    try(
+        if(!array_size(@ymlAry['groups']) == 0) {
+            if(!array_size(@ymlAry['groups'][@groupReq]) == 0) {
+                switch(@dataReq) {
+                    array('default', 'def'),
+                        return (assign(@return, @ymlAry['groups'][@groupReq]['default']))
+                    ,
+                    array('inheritance', 'inh'),
+                        return (assign(@return, @ymlAry['groups'][@groupReq]['inheritance']))
+                    ,
+                    array('permissions', 'perms', 'perm'),
+                        return (assign(@return, @ymlAry['groups'][@groupReq]['permissions']))
+                    , 
+                    array('id'),
+                        return (assign(@return, @ymlAry['groups'][@groupReq]['info']['id']))
+                    , 
+                    array('purchasable', 'purch', 'buy'),
+                        return (assign(@return, @ymlAry['groups'][@groupReq]['info']['purchasable']))
+                    , 
+                    array('prefix', 'pre'),
+                        return (assign(@return, @ymlAry['groups'][@groupReq]['info']['prefix']))
+                    , 
+                    array('build'),
+                        return (assign(@return, @ymlAry['groups'][@groupReq]['info']['build']))
+                    , 
+                    array('suffix', 'suf'),
+                        return (assign(@return, @ymlAry['groups'][@groupReq]['info']['suffix']))
+                    , 
+                    #Case Else:
+                        throw(InsufficientArgumentsException, 'Forced Exception')
+                }
             }
         }
-    }
+        , 
+        @exception
+        , 
+        if(@exception[0] ==  InsufficientArgumentsException) {
+            sys_err(' Unable to find the data: ' @dataReq ' The value may not exist.')
+            sys_err(' Bug Reports: https://github.com/iMasonite/CommandHelper')
+            msg(sconcat(color(c),'iMasonite"s Space Monkey says..\n - Unable to find the data for:', color(e), @dataReq))
+            die()
+        }
+        if(@exception[0] == IndexOverflowException) {
+            sys_err(' Unable to find the group: ' @groupReq ' The group may not exist.')
+            sys_err(' Bug Reports: https://github.com/iMasonite/CommandHelper')
+            msg(sconcat(color(c),'iMasonite"s Space Monkey says..\n - Unable to find the group:', color(e), @groupReq))
+            die()
+        }
+        ,
+        array(IndexOverflowException, InsufficientArgumentsException)
+    )
 )#proc
 
 ## --------- void GroupManager Users Data ----------
@@ -317,24 +336,43 @@ proc(_gMUserData, @userReq, @dataReq,
                             ' Please report this error to iMasonite')
         )
     }
-    if(!array_size(@ymlAry['users']) == 0) {
-        if(!array_size(@ymlAry['users'][@userReq]) == 0) {
-            switch(@dataReq) {
-                array('group'),
-                    return (assign(@return, @ymlAry['users'][@userReq]['group']))
-                ,
-                array('subgroups', 'sub'),
-                    return (assign(@return, @ymlAry['users'][@userReq]['subgroups']))
-                ,
-                array('permissions', 'perms', 'perm'),
-                    return (assign(@return, @ymlAry['users'][@userReq]['permissions']))
-                , 
-                array('prefix', 'pre'),
-                    return (assign(@return, @ymlAry['users'][@userReq]['info']['prefix']))
-                , 
-                #Case Else:
-                    return (assign(@return, 'Error Finding Data!'))
+    try(
+        if(!array_size(@ymlAry['users']) == 0) {
+            if(!array_size(@ymlAry['users'][@userReq]) == 0) {
+                switch(@dataReq) {
+                    array('group'),
+                        return (assign(@return, @ymlAry['users'][@userReq]['group']))
+                    ,
+                    array('subgroups', 'sub'),
+                        return (assign(@return, @ymlAry['users'][@userReq]['subgroups']))
+                    ,
+                    array('permissions', 'perms', 'perm'),
+                        return (assign(@return, @ymlAry['users'][@userReq]['permissions']))
+                    , 
+                    array('prefix', 'pre'),
+                        return (assign(@return, @ymlAry['users'][@userReq]['info']['prefix']))
+                    , 
+                    #Case Else:
+                        throw(InsufficientArgumentsException, 'Forced Exception')
+                }
             }
         }
-    }
+        , 
+        @exception
+        , 
+        if(@exception[0] ==  InsufficientArgumentsException) {
+            sys_err(' Unable to find the data: ' @dataReq ' The value may not exist.')
+            sys_err(' Bug Reports: https://github.com/iMasonite/CommandHelper')
+            msg(sconcat(color(c),'iMasonite"s Rabid Squirrel says..\n - Unable to find the data for:', color(e), @dataReq))
+            die()
+        }
+        if(@exception[0] == IndexOverflowException) {
+            sys_err(' Unable to find the user: ' @userReq ' The user may not exist.')
+            sys_err(' Bug Reports: https://github.com/iMasonite/CommandHelper')
+            msg(sconcat(color(c),'iMasonite"s Rabid Squirrel says..\n - Unable to find the user:', color(e), @userReq))
+            die()
+        }
+        ,
+        array(IndexOverflowException, InsufficientArgumentsException)
+    )
 )#proc
