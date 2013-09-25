@@ -22,19 +22,15 @@
         #TODO: Needs work on override perms
         die(concat(color(c)'[AdminChat]: You are not permitted to use this command!'))
     }
-    # Format the message to be sent to all players.  
-    # Collecting the group colour from _getExGroup
     assign(@formattedMsg, 
         concat(
-            _chatFormat('4', 'AdminChat', array_get(_getExGroup(@sender), 1), @sender, 'f'), 
+            _chatFormat('4', 'AdminChat',  _gMGroupData(_gMUserData(@sender, group), prefix)[1], @sender, 'f'), 
                 sconcat(@message)
         )
     )       
-    ##Get the online players and match the groups, thus display the message    
+    ## Permission Postchecks
     foreach(all_players(), @oPlayer) {
         if(has_permission(@oPlayer, 'commandhelper.alias.moderator')) {
-            #TODO: Needs work on override perms
-            ## colorize any &# codes
             tmsg(@oPlayer, colorize(@formattedMsg))
         }
     }

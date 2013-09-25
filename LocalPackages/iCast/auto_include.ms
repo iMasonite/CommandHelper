@@ -33,7 +33,7 @@ proc(_iCast, @string, @player,
                 broadcast(concat(color(6), '[', color(c), 'NOTICE', color(6), ']', color(a), replace(@string, '-n', '')))
             ,
             '-b',
-                if(not(has_permission(@player, 'commandhelper.alias.manager')),
+                if(not(has_permission(@player, 'icmd.icast.branding')),
                     die(concat(color(c)'[iCast]: You are not permitted to use the [Branding] flag'))
                 )
                 broadcast(concat(color(6), '[', color(d), 'BRANDING', color(6), ']', color(a), replace(@string, '-b', '')))
