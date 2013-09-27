@@ -1,0 +1,29 @@
+
+#Defaults
+assign(@package, 'PackMan')
+assign(@tagcolor, '4')
+assign(@msgcolor, 'f')
+assign(@enable, true)
+assign(@available, true)
+
+
+#Preambles
+assign(@mainpermission, todo)
+assign(@overrides, array('todo'))
+
+#Automate Installation
+sys_out('-----------------------------------------------------')
+sys_out('       '.@package.' Initialising config...')
+
+assign(@nspace, 'packages.'.@package)
+
+store_value(@nspace.'.Package.Available', boolean(@available))
+store_value(@nspace.'.Package.Enable', boolean(@enable))
+store_value(@nspace.'.Permission.Main', string('commandhelper.alias.'.@mainpermission))
+store_value(@nspace.'.Options.Localisation.ENG', string(@package))
+store_value(@nspace.'.Options.Formats.TagColor', string(@tagcolor))
+store_value(@nspace.'.Options.Formats.MsgColor', string(@msgcolor))
+
+foreach(@overrides, @override) {
+    store_value(@nspace.'.Permission.Override.'.@override, string('icmd.'.to_lower(@package).'.'.to_lower(@override)))
+}

@@ -1,6 +1,6 @@
 ## --------- void GroupManager Groups Data ----------
 ## Array of all GroupManager Data to be loaded
-## Into Memory for 240 seconds minimum before
+## Into Memory for [x] seconds minimum before
 ## a refresh looking for new data is preformed.
 ## A refresh will only run if the subroutine is run.
 ##
@@ -350,7 +350,18 @@ proc(_gMUserData, @userReq, @dataReq,
                         return (assign(@return, @ymlAry['users'][@userReq]['permissions']))
                     , 
                     array('prefix', 'pre'),
-                        return (assign(@return, @ymlAry['users'][@userReq]['info']['prefix']))
+                        try(
+                            return (assign(@return, @ymlAry['users'][@userReq]['info']['prefix']))
+                            ,@exception, IndexOverflowException
+                            sys_out(' Unable to find the data: ' @dataReq ' The user may not have one.')
+                        )
+                    , 
+                    array('role', 'info'),
+                        try(
+                            return (assign(@return, @ymlAry['users'][@userReq]['info']['role']))
+                            ,@exception, IndexOverflowException
+                            sys_out(' Unable to find the data: ' @dataReq ' The user may not have one.')
+                        )
                     , 
                     #Case Else:
                         throw(InsufficientArgumentsException, 'Forced Exception')

@@ -108,6 +108,7 @@ Backup*/
 UpgradeLog*.XML
 database/
 _gsdata_/
+gitpack/
 *.session
 crap.ms
 LocalPackages/Demo/

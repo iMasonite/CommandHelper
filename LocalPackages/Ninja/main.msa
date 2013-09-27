@@ -1,6 +1,0 @@
-## ----- Ninja command ---------------------------------------------
-## View the readme.md
-##
-*:/ninja [$request] = >>>
-    _Ninja($request, player())
-<<<

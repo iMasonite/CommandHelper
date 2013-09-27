@@ -1,5 +1,0 @@
-## ----- Message information on ranks ---------------------------------------------------
-## Full information on commands and rights of each group
-*:/rank [$request] = >>>
-    _rankInfo($request, player())
- <<<

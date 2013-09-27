@@ -124,7 +124,6 @@ proc(_getExGroup, @player,
     )
 )#proc
 
-
 ## ---------- Reusable Return Procedure teleportSafe ----------
 proc(_teleportSafe, @player, @coords,
 
