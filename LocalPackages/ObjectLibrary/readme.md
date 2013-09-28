@@ -4,13 +4,34 @@
 >Stage: *Reworking, Adding New*
 ####*All sundry functions that are use throughout the iCommands system*
 
-<p><strong>Object Libraries</strong></p>
-<p>Reusable functions/subroutine or used multiple times 
-throughout the commands will go here; this is also a 
-prerequisite for all the packages. Most commands will 
-not function without this package.</p>
+**Object Libraries**
+>Reusable functions/subroutines or used multiple times throughout the commands will go here; this is also a prerequisite for all the packages. Most commands will not function without this package. 
+>
+>Also remember that these functions can be used in game with user aliases for example, ```/alias /foo = _someProc(bar, args) <.. more script ..>```
 
+-------------------------------------------------------------
+#### Contents:
+* **[Group Manager](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#groupmanager "GroupManager")**
+	* [Groups Data](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#groupmanager-groups-data "Array of all GroupManager Data")
+	* [Group List](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#groupmanager-group-list "Array of Group Names in the order of the id")
+	* [Group Data](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#groupmanager-group-data "Get data for the requested group and data type.")
+	* [Users Data](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#groupmanager-users-data "Array of all GroupManager Users Data")
+	* [User List](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#groupmanager-user-list "Array of User Names from users.yml")
+	* [User Data](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#groupmanager-user-data "Get data for the requested user and data type.")
+* **[Common](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#common "Common functions/subroutines")**
+	* [Chat formatter (new)](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#chat-formatter-new "Format chat with a [Tag] text: <text>")
+	* [Coordinates Format](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#coordinates-format "Output for the chat to make the coordinates easy to read in game.")
+	* [Safe Teleportation](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#safe-teleportation "checks to see if the destination is safe for a player in survival mode to teleport")
+	* [Region Data. (bespoke display)](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#region-data-bespoke-display "region-data-bespoke-display")
+	* [Region Flag, Teleport location value clean.](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#region-flag-teleport-location-value-clean "Region Flag, Teleport location value clean.")
+* **[Depreciated (but still usable, phasing out)](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#depreciated-but-still-usable-phasing-out "")**
+	* [Rank Tag](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#rank-tag "Rank Tag")
+	* [Get Exact Group](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#get-exact-group "Get Exact Group")
+	* [Chat Format](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/ObjectLibrary#chat-format "Chat Format")
 
+> *Prerequisite for Group Manager Package to function is the official Group Manager plugin, see here... **[Essentials Group Manager](http://wiki.ess3.net/wiki/Breakdown#Standalone "Essentials Group Manager")***
+
+-------------------------------------------------------------
 ##  GroupManager...
 >Most if not all of the GroupManager scripts are for getting correct data (and more data) than CommandHelper can currently get via the built in methods. Note that this assumes you have your GroupManager set in the ```world``` folder as default. I'll add a config option soon.
 
@@ -30,6 +51,21 @@ not function without this package.</p>
 * **Usage:** ```_gMGroupList()```
 * **Arguments:** None
 * **Returns:** ```array```
+> This requires you to add a custom variable to each group named id, to do this use ```/mangaddv <group> id <idnumber>``` starting from your default group as **0 working up to your owner/admin group** so that your group will look like this...
+
+<pre>
+command would be: <strong>/mangaddv Default id 0</strong>
+
+  Default:
+    default: true
+    permissions: []
+    inheritance: []
+    info:
+      <strong>id: 0</strong>
+      prefix: '&a'
+      build: true
+      suffix: ''
+</pre>
 
 -------------------------------------------------------------
 
@@ -77,7 +113,7 @@ not function without this package.</p>
 ##  Common:
 
 #### Chat formatter (new):
->Format chat with a ```[Tag] text: <text>```, Main uses for this is for Package display information in chat (also AdminChat uses this).
+>Format chat with a ```[Tag] text: <text>```, Main uses for this is for Package display information in chat (also AdminChat uses this for the main messages). It will look in the config.yml for your changes and if found it will use them, or it will just use the default settings.
 
 * **Usage:** ```_chat(<package>, [text])```
 * **Arguments:** 
@@ -130,6 +166,7 @@ not function without this package.</p>
 -------------------------------------------------------------
 
 ##  Depreciated (but still usable, phasing out)
+#### Rank Tag:
 * _rankTag: ```_rankTag(4)```
 	* Info: Given a string such as 'builder' or integer such as 0 a tag is returned for the rank requested.
 		* Returns: ```string```
@@ -137,6 +174,7 @@ not function without this package.</p>
 
 -------------------------------------------------------------
 
+#### Get Exact Group:
 * _getExGroup: ```_getExGroup(player())```
 	* Info: Get the exact group of the player, return the name and associated color of the tag of the rank.
 	* Returns: Array of values, Example: {"Admin", "c"}
@@ -144,6 +182,7 @@ not function without this package.</p>
 
 -------------------------------------------------------------
 
+#### Chat Format:
 * _chatFormat: ```_chatFormat('d', iCommand, 'e', 'Information Text', 'f')```
 	* Info: Most chat messages to the user encompass a tag and formatting. Keeping the everything on a whole friendly on the eyes and easy to navigate in-game and code. Uniform aspect on a global scale of all chat bound messages.
 	* Returns: Formatted String of text to be used in the chat.

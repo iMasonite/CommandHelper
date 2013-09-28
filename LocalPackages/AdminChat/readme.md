@@ -12,3 +12,31 @@
 * **Commands:**
 	* Main + Help: ```/a```
 	* Message Command: ```/a <message>```
+
+---------------------------------
+
+#### Procedure usage:
+> The procedure can be used in your own code, use the following information to implement it.
+
+#### Admin Chat:
+* **Usage:** ```_adminChat(message, sender)```
+* **Arguments:** 
+	* **```message | Required | String```**
+		* The message to send to all players with the correct permissions.
+	* **```sender | Required | String```**
+		* The sender of the message, must be an Online player name.
+* **Returns:** ```Void```
+
+---------------------------------
+
+#### An example of this in the config.txt or main.msa file.
+<pre>
+*:/a [$] = >>>
+        _adminChat($, player())
+<<<
+</pre>
+
+#### An example of this in used for your personal alias in game..
+<pre>
+/alias /foo $msg = _adminChat($msg, player())
+</pre>
