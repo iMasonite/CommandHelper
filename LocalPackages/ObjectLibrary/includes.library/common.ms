@@ -39,12 +39,17 @@ proc(_chat, @package, @text,
     assign(@nspace, 'packages.'.@package)
     assign(@tagcolor, get_value(@nspace.'.Options.Formats.TagColor'))
     assign(@msgcolor, get_value(@nspace.'.Options.Formats.MsgColor'))
+    assign(@poscolor, array('1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'a', 'b', 'c', 'd', 'e', 'f'))
     
-    if(@tagcolor == 'null') { @tagcolor = '4' }
-    if(@msgcolor == 'null') { @msgcolor = 'f' }
+    ## Future plans to get a players localisation settings
+    assign(@localisa, get_value(@nspace.'.Options.Localisation.ENG'))
+    
+    if(@tagcolor == 'null' || @tagcolor == '' || !array_contains_ic(@poscolor, @tagcolor)) { @tagcolor = '4' }
+    if(@msgcolor == 'null' || @msgcolor == '' || !array_contains_ic(@poscolor, @msgcolor)) { @msgcolor = 'f' }
+    if(@localisa == 'null' || @localisa == '') { @localisa = @package }
     
     return (
-        colorize(' [&'.@tagcolor.@package.'&f] '.'&'.@text.'&7: &'.@msgcolor)
+        colorize(' [&'.@tagcolor.@localisa.'&f] '.'&'.@text.'&7: &'.@msgcolor)
     )
 
 )#proc

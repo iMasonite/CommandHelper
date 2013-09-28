@@ -5,12 +5,16 @@
 ## universal control over the iCommand packages.
 ##
 ## Usage:
-##      _deployPackage(@package, @force)
+##      _deployPackage(package, force)
 ##
-## Arguments: [optional] <required>
-##      <package>   = Name of the package to deploy i.e 'AdminChat'
-##      [force]     = force a reset of the config for the package 
-##                    to default settings.
+## Arguments:
+##  package | Required | String
+##      Name of the package to deploy i.e 'AdminChat'
+##  force   | Optional | Boolean
+##      Force a reset of the config for the package 
+##      to default settings.
+##
+## Returns: void 
 ##
 proc(_deployPackage, @package, @force,
     if(@package == '') {
@@ -63,7 +67,8 @@ proc(_deployPackage, @package, @force,
                 sys_err('[iCommands]: Required File Not Found: ../LocalPackages/'.@package.'/init.icfg')
         }
     } else {
-        # Check if required files exist in the LocalPackages.
+        # Check if required files exist in the LocalPackages and changes the 
+        # config Available status in the config to false, more so for the global help system.
         if(
         file_size('../LocalPackages/'.@package.'/auto_include.ms') <= 0 || 
         file_size('../LocalPackages/'.@package.'/main.msa') <= 0) {
