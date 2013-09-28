@@ -1,4 +1,4 @@
-iMasonite's __iCommands [2.3.2]__
+iMasonite's __iCommands [2.3.3]__
 =============
 
 ###*Various Commands using sk89q CommandHelper plugin*
@@ -14,8 +14,8 @@ iMasonite's __iCommands [2.3.2]__
 >Its a little more extensive than anything I've previously done on CommandHelper, but my plan is to expand the iCommands across the board with as many useful commands and some command replacements that will give additional information to the users mainly when they lack the required permissions to use said command/s.
 ## Packages: 
 #### Chronological order.
+- [Admin Chat](https://github.com/iMasonite/CommandHelper/tree/master/LocalPackages/AdminChat "Admin Chat") *Private Chat Channel for Moderator +*
 
-* At the moment there are no packages that are 100% functional so it would be unwise to download the current iCommands system. The next working version will be **```3.x.x```**
 
 
 -------------------------------------------------------------

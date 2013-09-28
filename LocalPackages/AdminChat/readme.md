@@ -1,21 +1,24 @@
 #iMasonite's : iCommands > AdminChat
->Status: *Non Functional* 
->
->Stage: *Rebuilding*
+>Status: *Functional* Mostly Complete.
 ###*Private Chat Channel for Moderator +*
 
 >Simple admin chat system that only the <player> with the correct permission will see and be able to use. This is so ranked players can chat among one another without your normal unranked players knowing about it.
 
 >There are overloaded permissions for both send and receive as you will see in the config.
 
-####  Usage:
+###  Usage:
 * **Commands:**
 	* Main + Help: ```/a```
 	* Message Command: ```/a <message>```
 
 ---------------------------------
 
-#### Procedure usage:
+* **TODO:**
+	* Localisation
+
+---------------------------------
+
+### Procedure usage:
 > The procedure can be used in your own code, use the following information to implement it.
 
 #### Admin Chat:
@@ -29,14 +32,9 @@
 
 ---------------------------------
 
-#### An example of this in the config.txt or main.msa file.
-<pre>
-*:/a [$] = >>>
-        _adminChat($, player())
-<<<
-</pre>
+##### An example of this in the config.txt or main.msa file.
+<code>*:/a [$] = _adminChat($, player())</code>
 
-#### An example of this in used for your personal alias in game..
-<pre>
-/alias /foo $msg = _adminChat($msg, player())
-</pre>
+##### An example of this in used for your personal alias in game..
+
+<code>/alias /foo $msg = _adminChat($msg, player())</code>
