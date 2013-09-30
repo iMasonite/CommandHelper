@@ -8,8 +8,8 @@ assign(@available, true)
 
 
 #Preambles
-assign(@mainpermission, todo)
-assign(@overrides, array('todo'))
+assign(@mainpermission, owner)
+assign(@overrides, array('access'))
 
 #Automate Installation
 sys_out('-----------------------------------------------------')

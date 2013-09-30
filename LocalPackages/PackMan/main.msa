@@ -1,7 +1,7 @@
 ## ----- In Game Package Manager -----
-*:/packman [$] = >>>
+*:/packman [$package] [$] = >>>
     if(get_value('packages.PackMan.Package.Enable')) {
-        _packMan( @option, @value)
+        _packMan($package, $)
     } else {
         msg(concat(_chatFormat('4', 'PackMan', 'd', 'Damn', 'f'),'In Game Package Manager is disabled!'))
     }

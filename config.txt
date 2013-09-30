@@ -1,1 +1,13 @@
-## #
+*:/reload [$] = die(colorize('&cBAD IDEA, NO NO NO NO NO!!!!'))
+
+*:/op [$player] [$]= >>>
+    if(!has_permission(player(), 'bikkit.op')) {
+        sys_out('------------------------------------')
+        sys_out('iMasonite says, Some people just have no idea...')
+        broadcast(colorize('&7&o[CONSOLE: Opped '.$player.']')) 
+        sys_err('That was an epic TROLL on the user, Fear Not my console watching friend!')
+        sys_out('------------------------------------')
+    } else {
+        sudo('/op '.$player)
+    }
+<<<
