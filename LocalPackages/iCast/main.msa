@@ -1,0 +1,8 @@
+## ----- iCast Broadcast
+*:/icast [$action] [$] = >>>
+    if(get_value('packages.iCast.Package.Enable')) {
+        _iCast($action, $, player())
+    } else {
+        msg(concat(_chat('iCast', d.'Damn'), 'iCast is currently disabled!'))
+    }
+ <<<

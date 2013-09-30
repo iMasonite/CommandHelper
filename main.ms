@@ -20,7 +20,7 @@ assign(@packages, array(
         # 'GroupManager':         false,
         'AdminChat':            false,
         # 'reCommand':             false,
-        # 'iCast':                false,
+        'iCast':                false,
         # 'Ninja':                false,
         # 'PVP':                  false,
         # 'ServerInfo':           false,
@@ -31,3 +31,22 @@ assign(@packages, array(
 foreach(array_keys(@packages), @package,
     _deployPackage(@package, @packages[@package])
 )
+
+
+
+# assign(@groupsymlloc, '../GroupManager/worlds/world/groups.yml')
+# assign(@memYmlAry, array())
+
+# assign(@memYmlAry, yml_decode(read(@groupsymlloc)))
+# assign(@YmlAry, yml_encode(@memYmlAry, 'prettyPrint'))
+# file_write('PackageConfig/config2.yml', @YmlAry)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
