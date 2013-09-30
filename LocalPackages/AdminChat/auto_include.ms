@@ -15,6 +15,7 @@
 ##
 proc(_adminChat, @message, @sender,
 
+    ## \/ @package localisation? \/
     assign(@package, 'AdminChat')
 
     if(pisop()) {
