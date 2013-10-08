@@ -1,52 +1,41 @@
-## --------- void Admin Chat ----------
-## Simple admin chat system that only the with the correct 
-## permission will see and be able to use. This is so ranked 
-## players can chat among one another without your normal 
-## unranked players knowing about it.
+## ---------- Procedure adminChat ----------
+## Simple admin chat system that only the <player> 
+## with the matching permission commandhelper.alias.moderator 
+## will see and be able to use. This is so Ranked Players can 
+## chat among one another without your normal unranked players 
+## knowing about it.
+## Usage Example:
+##      _adminChat(@sender, @message)
 ##
-## Usage:
-##      _adminChat(message, player)
-##
-## Arguments:
-##  message | Required | String
-##      The message to send to all players with the correct permissions.
-##  player  | Required | String
-##      The sender of the message, must be an Online player name.
-##
-proc(_adminChat, @message, @sender,
+ proc(_adminChat, @sender, @message,
 
-    ## \/ @package localisation? \/
-    assign(@package, 'AdminChat')
-
-    if(pisop()) {
-        assign(@usernamecolour, 'c')
-    } else {
-        assign(@usernamecolour, _gMGroupData(_gMUserData(@sender, group), prefix)[1])
-    }
-    ## Info and Usage 
-    if(equals(@message, '')) {
-        ## \/ plans to have this seperate in global help with localisation \/
+    ## Info and Usage
+    if(equals(@message, '')) { 
         msg('')
-        msg(concat(_chat(@package, d.'Info'), 'Private chat chanel for Moderator+'))
-        msg(concat(_chat(@package, d.'Usage'), '/a <message>'))
+        msg(concat(_chatFormat('4', 'AdminChat', 'd', 'Info', 'f'),'Private chat chanel for Moderator+'))
+        msg(concat(_chatFormat('4', 'AdminChat', 'd', 'Usage', 'f'),'/a <message>'))
         msg('')
         die()
     }
     ## Standard Permission Prechecks
-    if(!has_permission(@sender, 'commandhelper.alias.moderator') || 
-       !has_permission(@sender, 'icmd.adminchat.send')) {
-        
-        ## \/ plans to have this seperate in global help with localisation \/
-        die(msg(concat(_chat(@package, c.'Oops'), 'You are not permitted to use this command!')))
+    if(not(has_permission(@sender, 'commandhelper.alias.moderator'))) {
+        #TODO: Needs work on override perms
+        die(concat(color(c)'[AdminChat]: You are not permitted to use this command!'))
     }
-    ## Permission Postchecks
+    # Format the message to be sent to all players.  
+    # Collecting the group colour from _getExGroup
+    assign(@formattedMsg, 
+        concat(
+            _chatFormat('4', 'AdminChat', array_get(_getExGroup(@sender), 1), @sender, 'f'), 
+                sconcat(@message)
+        )
+    )       
+    ##Get the online players and match the groups, thus display the message    
     foreach(all_players(), @oPlayer) {
-        if(has_permission(@oPlayer, 'commandhelper.alias.moderator') || 
-           has_permission(@sender, 'icmd.adminchat.receive')) {
-            ## \/ @package tmsg localisation? \/
-            tmsg(@oPlayer, 
-                concat(_chat(@package, @usernamecolour.@sender), colorize(@message))
-            )
+        if(has_permission(@oPlayer, 'commandhelper.alias.moderator')) {
+            #TODO: Needs work on override perms
+            ## colorize any &# codes
+            tmsg(@oPlayer, colorize(@formattedMsg))
         }
     }
 )

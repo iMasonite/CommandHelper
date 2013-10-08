@@ -1,0 +1,11 @@
+## ----- CommandHelper - VariableTriggers Bridge ---------------------------------------------
+## Various commands targeted for use with VariableTriggers 
+## in a PVP arena based environment, they use the permission
+## check vt.admin. More information pending. As the VariableTriggers
+## plug-in is limited on what you can do, these commands will pick up
+## the slack. such as setting a walk/click trigger to
+## execute these commands and complete tasks that VariableTriggers 
+## cant do very well.
+*:/vpvp [$tplayer] [$request] [$]= >>>
+    _vpvp($tplayer, $request, $, player())
+<<<

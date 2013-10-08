@@ -1,13 +1,79 @@
-*:/reload [$] = die(colorize('&cBAD IDEA, NO NO NO NO NO!!!!'))
 
-*:/op [$player] [$]= >>>
-    if(!has_permission(player(), 'bikkit.op')) {
-        sys_out('------------------------------------')
-        sys_out('iMasonite says, Some people just have no idea...')
-        broadcast(colorize('&7&o[CONSOLE: Opped '.$player.']')) 
-        sys_err('That was an epic TROLL on the user, Fear Not my console watching friend!')
-        sys_out('------------------------------------')
+## Global Aliases : 
+*:/kit tools [$] = /kit noob
+*:/bk [$] = /backpack $
+*:/end [$] = /enderchest $
+
+## Warps Worlds :
+*:/fac [$] = /warp factions
+*:/factions [$] = /warp factions
+
+*:/rec [$] = /warp resources
+*:/resources [$] = /warp resources
+
+*:/cre [$] = /warp creative
+*:/creative [$] = /warp creative
+
+## Warps World : World : Warps
+*:/shop [$] = /warp shop
+*:/staff [$] = /warp staff
+*:/mall [$] = /warp mall
+*:/rules [$] = /warp rules
+*:/lobby [$] = /warp lobby
+
+
+*:/ocean [$] = /warp ocean
+*:/forest [$] = /warp forest
+*:/snow [$] = /warp snow
+*:/hills [$] = /warp hills
+*:/destert [$] = /warp destert
+
+*:/ccm [$] = /chatcontrol c $
+*:/ccc [$] = /chatcontrol c $
+*:/ccca [$] = /chatcontrol c Advertisement Pawned
+
+*:/f [$] = >>>
+
+    if(!equals(pworld(player()), 'world_factions')) {
+        msg(colorize('&d ____________ .:[ &aFactions&d ]:. ____________ '))
+        msg('')
+        msg(colorize('&b In order to use &aFaction Commands &byou need\nto be in the &eFactions World&b!'))
+        msg(colorize('&b Go there! &e/warp factions &bor &e/fac' ))
+        msg(colorize('&d ____________________________________ '))
+        die()
     } else {
-        sudo('/op '.$player)
+        run('/f '.$)
     }
+<<<
+
+
+*:/isign $line [$] = >>>
+    if(!has_permission(player(), 'bikkit.op')) {
+        die(msg(concat(_chat('Meh', c.'Oops'), 'You are not permitted to use this command!')))
+    }
+
+    assign(@line, integer($line))
+    assign(@newtext, colorize($))
+    assign(@pinfo, pinfo())    assign(@loc, pcursor())
+    if(!is_sign_at(@loc),
+        die('Your crosshairs are not looking at a sign.')
+    )
+    assign(@signarray, get_sign_text(@loc))
+    array_set(@signarray, @line, @newtext)
+    set_sign_text(@loc, @signarray)    msg('Done:' @signarray)
+<<<
+
+
+
+*:/irpln $1 $2 = >>>
+    if(!has_permission(player(), 'bikkit.op')) {
+        die(msg(concat(_chat('Meh', c.'Oops'), 'You are not permitted to use this command!')))
+    }
+
+    for(assign(@i, 0), @i < 15, @i++){ 
+        run('//replacenear 50 '.$1.':'.@i.' '.$2.':'.@i)
+    }
+
+
+
 <<<

@@ -1,8 +1,5 @@
-## ----- Admin Chat -----
+## ----- Admin Chat ---------------------------------------------------------------------
+## Private chat chanel for Moderator+
 *:/a [$] = >>>
-    if(get_value('packages.AdminChat.Package.Enable')) {
-        _adminChat($, player())
-    } else {
-        msg(concat(_chat('AdminChat', c.'Damn'), 'AdminChat is currently disabled!'))
-    }
+    _adminChat(player(), $)
 <<<

@@ -1,7 +1,14 @@
+## ---------- Procedure cmdStats ----------
+## Store usage data of each command.
+##
+## Usage Example:
+##      =============
+##
+proc(_cmdStats, @cmd, @player,
+
+
+)
 ## ---------- Reusable Return Procedure chatFormat ----------
-##~ Make Obsolete
-##~ Make Obsolete
-##~ Make Obsolete
 proc(_chatFormat, @prefixcolor, @prefix, @textcolor, @text, @messagecolor,
     return (
         concat(
@@ -18,41 +25,7 @@ proc(_chatFormat, @prefixcolor, @prefix, @textcolor, @text, @messagecolor,
             color(@messagecolor)
         )
     )
-)#proc
-
-## --------- function Chat ----------
-## Format chat with a [Tag] text: <text>
-## Main uses for this is for Packages.
-##
-## Usage:
-##      _chat(<package>, [text])
-##
-## Arguments: [optional] <required>
-##      <package> - The name of the package using this.
-##      [text] - The text to format.
-##
-## Returns:
-##      Colorized String.
-##
-proc(_chat, @package, @text,
-
-    assign(@nspace, 'packages.'.@package)
-    assign(@tagcolor, get_value(@nspace.'.Options.Formats.TagColor'))
-    assign(@msgcolor, get_value(@nspace.'.Options.Formats.MsgColor'))
-    assign(@poscolor, array('1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'a', 'b', 'c', 'd', 'e', 'f'))
-    
-    ## Future plans to get a players localisation settings
-    assign(@localisa, get_value(@nspace.'.Options.Localisation.ENG'))
-    
-    if(@tagcolor == 'null' || @tagcolor == '' || !array_contains_ic(@poscolor, @tagcolor)) { @tagcolor = '4' }
-    if(@msgcolor == 'null' || @msgcolor == '' || !array_contains_ic(@poscolor, @msgcolor)) { @msgcolor = 'f' }
-    if(@localisa == 'null' || @localisa == '') { @localisa = @package }
-    
-    return (
-        colorize(' [&'.@tagcolor.@localisa.'&f] '.'&'.@text.'&7: &'.@msgcolor)
-    )
-
-)#proc
+)
 
 ## ---------- Reusable Return Procedure coordFormat ----------
 proc(_coordFormat, @coordArray,
@@ -70,7 +43,7 @@ proc(_coordFormat, @coordArray,
     return (
         replace(replace(@cleanme, '{', ''), '}', '')
     )
-)#proc
+)
 
 ## ---------- Reusable Return Procedure rankTag ----------
 proc(_rankTag, @rankReq,
@@ -97,7 +70,7 @@ proc(_rankTag, @rankReq,
                 
                 return (concat(color(f), '[', color(f), 'Default', color(f), ']'))
     }
-)#proc
+)
 
 ## ---------- Reusable Return Procedure getExGroup ----------
 proc(_getExGroup, @player,
@@ -127,7 +100,8 @@ proc(_getExGroup, @player,
         ,#else
             return(array(Default, e))
     )
-)#proc
+)
+
 
 ## ---------- Reusable Return Procedure teleportSafe ----------
 proc(_teleportSafe, @player, @coords,
@@ -184,7 +158,7 @@ proc(_teleportSafe, @player, @coords,
         }
     }
     return(boolean(@issafe))
-)#proc
+)
 ## ---------- Reusable Return Procedure getSq_RegionData ----------
 proc(_getSq_RegionData, @region, @world, @player, @extension,
     try(
@@ -202,7 +176,7 @@ proc(_getSq_RegionData, @region, @world, @player, @extension,
     return (
         @regiondata
     )
-)#proc
+)
 ## ---------- Reusable Procedure validateWorlds ----------
 ## Checks if a world exits (loaded) and if it fails then
 ## it will inform the user what worlds are loaded. 
@@ -241,7 +215,7 @@ proc(_getSq_RegionData, @region, @world, @player, @extension,
     # return(
         # @return
     # )
-#)#proc
+# )
 
 
 ## ---------- Reusable Return Procedure teleFlagClean ----------
@@ -256,6 +230,6 @@ proc(_teleFlagClean, @flagArray,
             @clean
         )
     }
-)#proc
+)
 
 

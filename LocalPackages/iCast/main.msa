@@ -1,8 +1,5 @@
-## ----- iCast Broadcast
-*:/icast [$action] [$] = >>>
-    if(get_value('packages.iCast.Package.Enable')) {
-        _iCast($action, $, player())
-    } else {
-        msg(concat(_chat('iCast', d.'Damn'), 'iCast is currently disabled!'))
-    }
+## ----- Expanded Broadcast ---------------------------------------------------------------
+## Broadcast system that can accept additional flags to alter the type of broadcast. 
+*:/icast [$cast] [$] = >>>
+    _iCast($cast $, player())
  <<<
