@@ -1,13 +1,4 @@
-## ---------- Procedure cmdStats ----------
-## Store usage data of each command.
-##
-## Usage Example:
-##      =============
-##
-proc(_cmdStats, @cmd, @player,
 
-
-)
 ## ---------- Reusable Return Procedure chatFormat ----------
 proc(_chatFormat, @prefixcolor, @prefix, @textcolor, @text, @messagecolor,
     return (
@@ -25,7 +16,19 @@ proc(_chatFormat, @prefixcolor, @prefix, @textcolor, @text, @messagecolor,
             color(@messagecolor)
         )
     )
-)
+)#proc
+
+## --------- function Chat ----------
+## Format chat with a "[Package] tag: " format
+## Main uses for this is for Packages.
+proc(_chat, @package, @tag,
+
+    assign(@tagcolor, '4')
+    return (
+        colorize(' [&'.@tagcolor.@package.'&f] '.'&d'.@tag.'&7: &r')
+    )
+
+)#proc
 
 ## ---------- Reusable Return Procedure coordFormat ----------
 proc(_coordFormat, @coordArray,
@@ -43,7 +46,7 @@ proc(_coordFormat, @coordArray,
     return (
         replace(replace(@cleanme, '{', ''), '}', '')
     )
-)
+)#proc
 
 ## ---------- Reusable Return Procedure rankTag ----------
 proc(_rankTag, @rankReq,
@@ -70,7 +73,7 @@ proc(_rankTag, @rankReq,
                 
                 return (concat(color(f), '[', color(f), 'Default', color(f), ']'))
     }
-)
+)#proc
 
 ## ---------- Reusable Return Procedure getExGroup ----------
 proc(_getExGroup, @player,
@@ -100,7 +103,7 @@ proc(_getExGroup, @player,
         ,#else
             return(array(Default, e))
     )
-)
+)#proc
 
 
 ## ---------- Reusable Return Procedure teleportSafe ----------
@@ -158,65 +161,7 @@ proc(_teleportSafe, @player, @coords,
         }
     }
     return(boolean(@issafe))
-)
-## ---------- Reusable Return Procedure getSq_RegionData ----------
-proc(_getSq_RegionData, @region, @world, @player, @extension,
-    try(
-        assign(@regiondata, sk_region_info(@region, @world))
-        
-        , @exception, 
-            if(equals(array_get(@exception, 0), PluginInternalException)) {
-                msg(concat(_chatFormat('4', @extension, 'd', 'Region Not Found!', 'f'), 'In World: ', color(c), @world))
-                msg('')
-                die()
-            }
-        ,
-        array(PluginInternalException, CastException)
-    )
-    return (
-        @regiondata
-    )
-)
-## ---------- Reusable Procedure validateWorlds ----------
-## Checks if a world exits (loaded) and if it fails then
-## it will inform the user what worlds are loaded. 
-##
-## If @justdefault is true it wont inform the user it will just
-## return the players current world.
-##
-## Usage:
-##      _validateWorlds(@world, @extension, @justdefault)
-## Returns:
-##      World Name after success testing or default if required
-##
-# proc(_validateWorlds, @world, @player, @extension, @justdefault,
-    # assign(@worldsloaded, array())
-    # foreach(get_worlds(), @worldloaded) {
-        # array_push(@worldsloaded, @worldloaded)
-    # }
-    # if(not(array_contains(@worldsloaded, @world))) {
-        # msg('')
-        # msg(concat(_chatFormat('4', @extension, 'd', 'Invalid World', 'f'), 'The World: ', color(c), @world))
-        # msg(concat(_chatFormat('4', @extension, 'd', 'Invalid World', 'f'), 'does not exist, please try again...' ))
-        # assign(@loaded, '')
-        # foreach(get_worlds(), @worlds) {
-            # @loaded = concat(@loaded, concat('\'', @worlds, '\' '))
-        # }
-        # msg(concat(_chatFormat('4', @extension, 'd', 'Worlds', 'e'), @loaded))
-        # die()
-    # }
-    # assign(@return, @world)
-    # if(equals(@justdefault, false)) {
-        # @return = ploc(@player)[3]
-    # , 
-        # @return = @world
-    # }
-    # msg('@return' : @return)
-    # return(
-        # @return
-    # )
-# )
-
+)#proc
 
 ## ---------- Reusable Return Procedure teleFlagClean ----------
 proc(_teleFlagClean, @flagArray,
@@ -230,6 +175,4 @@ proc(_teleFlagClean, @flagArray,
             @clean
         )
     }
-)
-
-
+)#proc
