@@ -1,3 +1,11 @@
+*:/gm [$] =  call_alias('/gamemode '.$) 
+*:/gmc [$] = call_alias('/gamemode '.$) 
+*:/gamemode [$] = >>>
+    if(!has_permission(player(), 'essentials.gamemode')) {
+        die(concat(colorize('&c[NoPerms]: This is a &f[&bModerator&f]&c or higher command..')))
+    }
+    run('/gamemode '.$)
+<<<
 
 ## Global Aliases : 
 *:/kit tools [$] = /kit noob
@@ -28,7 +36,6 @@
 *:/hills [$] = /warp hills
 *:/destert [$] = /warp destert
 
-*:/ccm [$] = /chatcontrol c $
 *:/ccc [$] = /chatcontrol c $
 *:/ccca [$] = /chatcontrol c Advertisement Pawned
 
@@ -45,7 +52,17 @@
         run('/f '.$)
     }
 <<<
+*:/manglistp [$] = >>>
+<<<
+*:/buycraft [$] = >>>
+<<<
 
+*:/vip [$] = >>>
+        msg(colorize('&d ____________ .:[ &2VIP&d ]:. ____________ '))
+        msg('')
+        msg(colorize('&b Info: &ehttp://thorpscraft.com/features.php#f0r0'))
+        msg(colorize('&d ____________________________________ '))
+<<<
 
 *:/isign $line [$] = >>>
     if(!has_permission(player(), 'bikkit.op')) {
@@ -64,16 +81,77 @@
 <<<
 
 
-
-*:/irpln $1 $2 = >>>
+*:/reload  [$] = >>>
     if(!has_permission(player(), 'bikkit.op')) {
-        die(msg(concat(_chat('Meh', c.'Oops'), 'You are not permitted to use this command!')))
+            die(color(c).'You are not permitted to use this command!')
+    } else {
+        die(colorize('&cBAD IDEA, NO NO NO NO NO!!!!'))
     }
-
-    for(assign(@i, 0), @i < 15, @i++){ 
-        run('//replacenear 50 '.$1.':'.@i.' '.$2.':'.@i)
-    }
-
-
-
 <<<
+
+*:/pm [$] = call_alias('/plugman '.$) 
+*:/plugman [$] = >>>
+
+    assign(@args, parse_args($))
+    if(@args[1] == to_lower('commandhelper')) {
+        die(colorize('&cThis plugin cannot be altered.'))
+    }
+    run('/plugman '.$)
+   
+<<<
+
+*:/op [$player] [$]= >>>
+    if(!has_permission(player(), 'bikkit.op')) {
+        die(color(c).'You are not permitted to use this command!')
+    } else {
+        if(!has_permission($player, 'bikkit.op')) {
+            die(color(c).'This player cannot be opped..!')
+        } else {
+            sudo('/op '.$player)
+        }
+    }
+<<<
+
+# *:/irpln $1 $2 = >>>
+    # if(!has_permission(player(), 'bikkit.op')) {
+        # die(msg(concat(_chat('Meh', c.'Oops'), 'You are not permitted to use this command!')))
+    # }
+
+    # for(assign(@i, 0), @i < 15, @i++){ 
+        # run('//replacenear 50 '.$1.':'.@i.' '.$2.':'.@i)
+    # }
+
+
+
+# <<<
+
+
+
+# *:/test $1 $2 $3 = >>>
+    # if(!has_permission(player(), 'bikkit.op')) {
+        # die(msg(concat(_chat('Meh', c.'Oops'), 'You are not permitted to use this command!')))
+    # }
+    # set_pvelocity(player(), $1, $2, $3)
+# <<<
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

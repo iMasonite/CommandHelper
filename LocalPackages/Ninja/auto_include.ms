@@ -11,17 +11,15 @@ proc(_Ninja, @arg, @player,
         msg(concat(_chat('Ninja', 'Info'), 'Join the server like a ninja!'))
         msg(concat(_chat('Ninja', 'Usage'), '- /ninja [on|off]'))
         msg(concat(_chat('Ninja', 'Usage'), '- /ninja list'))
-        #msg(concat(_chat('Ninja', 'Usage'), '- /ninja <player> [on|off]'))
-
-
-
+        msg(concat(_chat('Ninja', 'Usage'), '- /ninja set <player> <on|off>'))
+ 
         # Display your current mode if you have perms.
-        if(has_permission(@player, 'commandhelper.alias.manager')) {
+        if(has_permission(player(), 'commandhelper.alias.manager')) {
             assign(@saved, get_value('ninja.save.names'))
             if(@saved == 'null') {
                 @saved = array()
             }
-            if(array_contains_ic(@saved, @player)) {
+            if(array_contains_ic(@saved, player())) {
                 msg(concat(_chat('Ninja', 'Your Status'), colorize('&aNinja is ON')))
             } else {
                 msg(concat(_chat('Ninja', 'Your Status'), colorize('&cNinja is Off.')))
@@ -30,17 +28,18 @@ proc(_Ninja, @arg, @player,
         die()
     }
     ## Standard Permission Prechecks
-    if(!has_permission(@player, 'commandhelper.alias.manager')) {
+    if(!has_permission(player(), 'commandhelper.alias.manager')) {
         die(concat(color(c)'[Ninja]: You are not permitted to use this command'))
     }
+    
     assign(@args, parse_args(@arg))
-
     ## Main >
+    
     switch(@args[0]) {
         'on',
             assign(@save_on, get_value(concat('ninja.save.names')))
             if(@save_on == 'null') {
-            @save_on = array()
+                @save_on = array()
             }
             if(!array_contains_ic(@save_on, @player)) {
                 array_push(@save_on, @player)
@@ -84,6 +83,38 @@ proc(_Ninja, @arg, @player,
                     }
                 }
                 msg(concat(color(a), colorize(@list)))
+                die()
+            }
+        ,
+        'set',
+            if(!array_index_exists(@args, 1) || @args[1] == '') {
+                msg(concat(_chat('Ninja', 'Error'), colorize('&cPlayer name expected...')))
+                msg(concat(_chat('Ninja', 'Usage'), '- /ninja set <player> <on|off>'))
+                die()
+            }
+            if(!array_index_exists(@args, 2) || @args[2] == '') {
+                msg(concat(_chat('Ninja', 'Error'), colorize('&a on &for &coff &fexpected...')))
+                msg(concat(_chat('Ninja', 'Usage'), colorize('- /ninja set '.@args[1].' on | off')))
+                die()
+            }
+            if(!phas_played(@args[1])) {
+                msg(concat(_chat('Ninja', 'Error'), colorize(' &e'.@args[1].' &cHas Never played on this server.')))
+                die()
+            }
+            switch(@args[2]) {
+            'on',
+                msg(concat(_chat('Ninja', 'Player'), colorize('&eChanging Mode for player'.@args[1])))
+                _Ninja('on', @args[1])
+                die()
+            ,
+            'off',
+                msg(concat(_chat('Ninja', 'Player'), colorize('&eChanging Mode for player'.@args[1])))
+                _Ninja('off', @args[1])
+                die()
+            ,
+            #Case Else:
+                msg(concat(_chat('Ninja', 'Error'), colorize('&cSomthing went wrong..')))
+                msg(concat(_chat('Ninja', 'Usage'), '- /ninja set <player> <on|off>'))
                 die()
             }
         ,
