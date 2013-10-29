@@ -14,7 +14,7 @@ proc(_Ninja, @arg, @player,
         msg(concat(_chat('Ninja', 'Usage'), '- /ninja set <player> <on|off>'))
  
         # Display your current mode if you have perms.
-        if(has_permission(player(), 'commandhelper.alias.manager')) {
+        if(has_permission(player(), 'commandhelper.alias.manager') || has_permission(player(), 'icmd.override.ninja')) {
             assign(@saved, get_value('ninja.save.names'))
             if(@saved == 'null') {
                 @saved = array()
@@ -28,13 +28,13 @@ proc(_Ninja, @arg, @player,
         die()
     }
     ## Standard Permission Prechecks
-    if(!has_permission(player(), 'commandhelper.alias.manager')) {
+    if(has_permission(player(), 'commandhelper.alias.manager') || has_permission(player(), 'icmd.override.ninja')) {
         die(concat(color(c)'[Ninja]: You are not permitted to use this command'))
     }
     
     assign(@args, parse_args(@arg))
-    ## Main >
     
+    ## Main >
     switch(@args[0]) {
         'on',
             assign(@save_on, get_value(concat('ninja.save.names')))

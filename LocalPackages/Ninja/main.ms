@@ -13,7 +13,8 @@ bind(player_join, null, null, @event,
         sudo('/vanish')
         modify_event('message', '')
     }
-)
+)#proc
+
 ## ---------- Event Binder  player_join ----------
 ## On player_quit the " [x] player left the game" 
 ## message will be removed.
@@ -28,4 +29,4 @@ bind(player_quit, null, null, @event,
     if(array_contains_ic(@saved, @event['player'])) {
         modify_event('message', '')
     }
-)
+)#proc
